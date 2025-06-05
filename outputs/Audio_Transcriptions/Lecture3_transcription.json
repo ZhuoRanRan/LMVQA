@@ -1,0 +1,214 @@
+[
+    {
+        "timestamp": "0.0-6.92s",
+        "text": " The first question is, okay, you're going to be implementing your stack using an array."
+    },
+    {
+        "timestamp": "8.54-15.24s",
+        "text": " And because of that, you're going to somehow keep track of this array."
+    },
+    {
+        "timestamp": "16.2-21.02s",
+        "text": " And because you need to keep track of an array, you're going to need an instance variable."
+    },
+    {
+        "timestamp": "21.4-25.54s",
+        "text": " And it's going to be an instance variable, not a class variable, because each stack has its own array."
+    },
+    {
+        "timestamp": "25.54-31.9s",
+        "text": " Okay, you're going to have an instance variable that is going to keep this array."
+    },
+    {
+        "timestamp": "32.7-34.04s",
+        "text": " Okay, so this is easy."
+    },
+    {
+        "timestamp": "35.88-45.18s",
+        "text": " What we're going to do is to define something called LMs, which is going to be an array of objects."
+    },
+    {
+        "timestamp": "45.18-50.46s",
+        "text": " And this is where you're going to store the elements of our stack."
+    },
+    {
+        "timestamp": "51.58-53.44s",
+        "text": " Okay, so that was easy."
+    },
+    {
+        "timestamp": "53.44-58.68s",
+        "text": " Now, the question is, what else do we need?"
+    },
+    {
+        "timestamp": "58.84-68.86s",
+        "text": " We somehow have to keep track of how much of this array has been used and what is the status of the array."
+    },
+    {
+        "timestamp": "69.38-77.68s",
+        "text": " Okay, so that requires us to have some other instance variable to keep the state."
+    },
+    {
+        "timestamp": "77.68-87.02s",
+        "text": " Because, you know, we have to interact with the top of this stack."
+    },
+    {
+        "timestamp": "88.08-97.04s",
+        "text": " And either we have to fix the top at a particular location, like what, for example, you would do in a stack of plates."
+    },
+    {
+        "timestamp": "97.14-102.64s",
+        "text": " You know, these stacks where, you know, the top of the plate is always at the surface."
+    },
+    {
+        "timestamp": "102.64-114.98s",
+        "text": " So either you do that, where the top of the stack is always at a given position, or you're going to have to keep track of the top that is going to be variable."
+    },
+    {
+        "timestamp": "114.98-132.26s",
+        "text": " Okay, like as if you have a stack of plates, but, you know, there is no spring loaded mechanism underneath so that it would allow you to put, you know, the top of the stack, you know, to be flush with the top of the table."
+    },
+    {
+        "timestamp": "132.26-135.6s",
+        "text": " So basically, if you don't have that, it's like a table like this."
+    },
+    {
+        "timestamp": "135.98-144.66s",
+        "text": " As I put the plates on top of each other, you know, it's my top that is going to, you know, change."
+    },
+    {
+        "timestamp": "145.14-158.34s",
+        "text": " Okay, whereas if you have a spring loaded mechanism, and the top plate is going to be flush with the table, it's the spring that is going to get squeezed, and it's the bottom that is going to move."
+    },
+    {
+        "timestamp": "158.34-166.7s",
+        "text": " Okay, so we have to figure out which of these two strategies, and the analogy would be exactly like that."
+    },
+    {
+        "timestamp": "166.8-173.02s",
+        "text": " You have a hard surface, you stack off your plates, the top moves, or you're going to have a spring loaded mechanism."
+    },
+    {
+        "timestamp": "173.5-178.08s",
+        "text": " The top is always at the same location, and it's the bottom that moves."
+    },
+    {
+        "timestamp": "178.32-179.96s",
+        "text": " Which one is going to be more thin?"
+    },
+    {
+        "timestamp": "179.96-186.76s",
+        "text": " Okay, so that question we have to answer, and we're going to go through the possibilities."
+    },
+    {
+        "timestamp": "188.14-193.38s",
+        "text": " Before going there, there is one further assumption we have to sort out."
+    },
+    {
+        "timestamp": "193.38-197.42s",
+        "text": " So when I have an array, I have two possibilities."
+    },
+    {
+        "timestamp": "197.88-207.16s",
+        "text": " I'm going to start filling this array with elements from the highest index and go down."
+    },
+    {
+        "timestamp": "207.68-214.5s",
+        "text": " Or alternatively, I could start with filling from the lowest index and go up."
+    },
+    {
+        "timestamp": "215.24-215.4s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "215.4-232.52s",
+        "text": " The implementations that you're going to get are quite symmetric, so at the end of the day, it doesn't really matter whether you start with the highest index and move your way down, or you start from the other end, basically the lowest index, and move up."
+    },
+    {
+        "timestamp": "232.52-241.72s",
+        "text": " So for the purposes of our implementation, we are going to use lower indices first, and then we're going to move up."
+    },
+    {
+        "timestamp": "241.82-251.6s",
+        "text": " So our starting point is going to be here, and then we are going to basically use more elements as we need to put more elements."
+    },
+    {
+        "timestamp": "253.24-253.8s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "253.8-253.86s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "254.78-259.8s",
+        "text": " Now, let me go back to this question of..."
+    },
+    {
+        "timestamp": "259.8-268.08s",
+        "text": " whether it makes sense to keep track of the top or the bottom."
+    },
+    {
+        "timestamp": "269.56-269.78s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "270.14-280.06s",
+        "text": " So let's start with a situation where we keep track of the bottom, and we assume that the top is always at position zero."
+    },
+    {
+        "timestamp": "281.74-282.34s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "283.22-287.88s",
+        "text": " What is going to happen when I put a new element in?"
+    },
+    {
+        "timestamp": "287.88-304.6s",
+        "text": " Everything that I have on the stack already, it has to move one position to the right to make space for a new element."
+    },
+    {
+        "timestamp": "305.88-306.18s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "306.58-311.56s",
+        "text": " Let's go back to that spring-loaded stack of plates."
+    },
+    {
+        "timestamp": "311.56-312.22s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "312.22-333.48s",
+        "text": " Every time you put an element on top of this stack, you're going to push the stack a little bit so that all the plates will move a little bit further down to make room for this new plate that you just put on top of the stack."
+    },
+    {
+        "timestamp": "333.48-334.48s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "334.48-335.48s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "335.48-336.48s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "336.48-350.34s",
+        "text": " Thankfully, in this situation, force, the physical force you apply and the gravity, these have an impact at the speed of light."
+    },
+    {
+        "timestamp": "350.34-351.34s",
+        "text": " Okay?"
+    },
+    {
+        "timestamp": "351.34-357.1s",
+        "text": " So you don't have to worry about performance because, you know, the effect is immediate."
+    },
+    {
+        "timestamp": "357.1-369.34s",
+        "text": " You push things a little bit and, you know, they immediately, at the speed of light, presumably, it will result in, you know, space to be freed up for the new plate."
+    }
+]

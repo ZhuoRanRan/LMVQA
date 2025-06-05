@@ -1,0 +1,15 @@
+decouple-pipeline-env/
+**.pyc
+.env
+__pycache__/
+venv/
+.vscode/
+**.pdf
+.DS_Store
+Lecture.mp4
+Tutorial_2.mp4
+Tutorial.mp4
+docker-compose-deployment.yml
+Lecture1.mp4
+Lecture1.wav
+Tutorial.wav
