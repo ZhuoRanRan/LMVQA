@@ -12,4 +12,5 @@ Tutorial.mp4
 docker-compose-deployment.yml
 Lecture1.mp4
 Lecture1.wav
-Tutorial.wav
+Tutorial.wavinput_videos/*.mp4
+input_videos/*.mp4

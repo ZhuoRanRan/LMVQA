@@ -1,0 +1,4 @@
+{
+  "video_name": "stop_sign2",
+  "narration": "[0–1s] START: The car is stationary at the top of a steep downhill city street near urban buildings.  \n\n[1–5s] ACCELERATE: The car begins moving forward and gently increases speed to 35 mph as it descends the hill.  \n\n[5–7s] VIOLATION: The car fails to stop at a clearly visible stop sign at the intersection, continuing at approximately 41 mph, which is unsafe given the upcoming turn.  \n\n[7–8s] TURN_RIGHT: The car attempts a sharp right turn at the intersection but misjudges the steering angle and speed.  \n\n[7–8s] COLLISION: The vehicle mounts the sidewalk and crashes into a concrete barrier along the edge of the road.  \n\n[8–9s] STOP: The car comes to a halt after the collision, with visible damage to the induction system and engine. The vehicle remains stationary, signaling the end of the sequence."
+}
