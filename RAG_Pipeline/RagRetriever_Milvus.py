@@ -18,7 +18,16 @@ class RagRetrieverMilvus:
     def __init__(self, video_name: str, overwrite: bool = False):
         self.video_name = video_name
         self.collection_name = f"videoqa_{video_name}"
-        connections.connect(alias="default", host=MILVUS_HOST, port=MILVUS_PORT)
+
+        connections.connect(
+            alias="default",
+            host=MILVUS_HOST,
+            port=MILVUS_PORT,
+            user=os.getenv("MILVUS_USER"),
+            password=os.getenv("MILVUS_PASSWORD"),
+            db_name=os.getenv("MILVUS_DB_NAME")
+        )
+
         self._ensure_collection(overwrite)
 
     def _ensure_collection(self, overwrite: bool = False):
@@ -60,9 +69,6 @@ class RagRetrieverMilvus:
         return [d.embedding for d in response.data]
 
     def build_from_chunks(self):
-        """
-        Load outputs/chunks/{video_name}/all_chunks.jsonl and insert into this video's collection.
-        """
         chunk_path = os.path.join("outputs", "chunks", self.video_name, "all_chunks.jsonl")
         if not os.path.exists(chunk_path):
             print(f"❌ Chunk file not found: {chunk_path}")
@@ -90,11 +96,7 @@ class RagRetrieverMilvus:
         print(f"✅ Inserted {len(texts)} entries to `{self.collection_name}`")
 
     def query(self, question: str, top_k: int = 50) -> List[dict]:
-        """
-        Search top-k most relevant chunks for the current video.
-        """
         embedding = self._embed_texts([question])[0]
-
         results = self.collection.search(
             data=[embedding],
             anns_field="embedding",
@@ -102,7 +104,6 @@ class RagRetrieverMilvus:
             limit=top_k,
             output_fields=["text", "timestamp", "source"]
         )
-
         hits = results[0]
         return [
             {

@@ -1,17 +1,22 @@
+import os
 from pymilvus import connections, utility
+from dotenv import load_dotenv
 from VideoQA_constants.data import MILVUS_HOST, MILVUS_PORT
 
-connections.connect(alias="default", host=MILVUS_HOST, port=MILVUS_PORT)
+load_dotenv()
+
+connections.connect(
+    alias="default",
+    host=MILVUS_HOST,
+    port=MILVUS_PORT,
+    user=os.getenv("MILVUS_USER"),
+    password=os.getenv("MILVUS_PASSWORD"),
+    db_name=os.getenv("MILVUS_DB_NAME")
+)
 
 def delete_video_collection(video_name: str) -> bool:
     """
     Deletes the Milvus collection for a specific video.
-    
-    Args:
-        video_name (str): The name of the video (e.g., "Lecture1")
-
-    Returns:
-        bool: True if collection deleted, False if not found
     """
     collection_name = f"videoqa_{video_name}"
     if utility.has_collection(collection_name):
