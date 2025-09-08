@@ -53,3 +53,37 @@ Only if the video **truly lacks relevant information** should you respond:
 
 **AI Answer:**
 """
+
+GEVAL_CORRECTNESS_STEPS = [
+    "Evaluate whether the 'actual output' conveys the same core facts or meaning as the 'expected output', even if phrased differently.",
+    "Do not penalize for differences in wording, synonyms, or style if the essential information is preserved.",
+    "Omitting minor or non-essential details is acceptable as long as the main answer is correct.",
+    "Extra information is acceptable unless it introduces factual inaccuracies or contradictions.",
+    "Focus primarily on whether the 'actual output' provides a faithful and meaningful answer to the ground truth.",
+    "If the answer is only partially correct, assign a fractional score between 0 and 1 to reflect the degree of correctness."
+]
+
+
+RAG_PROMPT_TEMPLATE_QA_GENERATE = """
+You are an AI assistant specialized in understanding lecture videos by interpreting timestamped multimodal information.
+
+The video has a total duration of **{video_duration} seconds**.
+
+Each retrieved segment below is marked with a prefix indicating its source:
+- Segments starting with **[audio]** are transcriptions of what the speaker said, captured from the video's audio track during the indicated time interval.
+- Segments starting with **[visual]** are descriptions of what was shown on screen (slides, diagrams, interface, etc.) during that time period.
+
+Timestamps reflect the exact time range in the video when each segment occurred.
+Use this information to reason about the video's temporal flow and answer time-related questions.
+
+You must answer using only the content retrieved below.
+Output **ONLY** the final answer text, without explanation, reasoning, or commentary.
+Do not make assumptions or generate content beyond the given segments.
+
+### Retrieved Video & Audio Segments:
+{retrieved_context}
+
+**User Question:** {user_question}
+
+**AI Answer:**
+"""

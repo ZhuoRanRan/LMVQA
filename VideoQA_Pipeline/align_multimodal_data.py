@@ -1,7 +1,7 @@
 import os
 import json
 from RAG_Pipeline.RagRetriever_Milvus import RagRetrieverMilvus
-from VideoQA_constants.prompts import RAG_PROMPT_TEMPLATE_NORMAL_ACTION
+from VideoQA_constants.prompts import RAG_PROMPT_TEMPLATE_NORMAL_ACTION, RAG_PROMPT_TEMPLATE_QA_GENERATE
 
 def format_chunks(chunks):
     """
@@ -56,7 +56,8 @@ def align_multimodal_data(multimodal_context, user_question, use_full_context=Fa
         top_chunks = retriever.query(user_question, top_k=top_k)
         retrieved_context = format_chunks(top_chunks)
 
-    prompt_template = RAG_PROMPT_TEMPLATE_NORMAL_ACTION
+    # prompt_template = RAG_PROMPT_TEMPLATE_NORMAL_ACTION
+    prompt_template = RAG_PROMPT_TEMPLATE_QA_GENERATE
     return prompt_template.format(
         video_duration=video_duration,
         retrieved_context=retrieved_context,

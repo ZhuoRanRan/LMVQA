@@ -23,6 +23,6 @@ def generate_narration_from_video(video_path: str, overwrite: bool = False) -> s
     return narration
 
 if __name__ == "__main__":
-    video_path = "ADS_input_videos/red_light4.mp4"
+    video_path = "ADS_input_videos/ThirdPerson's_perspective.mp4"
     # video_path = "input_videos/Driver's_perspective.mp4"
-    generate_narration_from_video(video_path, overwrite=True)
+    generate_narration_from_video(video_path, overwrite=False)

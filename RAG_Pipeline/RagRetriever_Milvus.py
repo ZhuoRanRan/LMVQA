@@ -95,7 +95,7 @@ class RagRetrieverMilvus:
         self.collection.flush()
         print(f"✅ Inserted {len(texts)} entries to `{self.collection_name}`")
 
-    def query(self, question: str, top_k: int = 50) -> List[dict]:
+    def query(self, question: str, top_k: int = 100) -> List[dict]:
         embedding = self._embed_texts([question])[0]
         results = self.collection.search(
             data=[embedding],

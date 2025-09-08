@@ -1,7 +1,7 @@
 from VideoQA_Pipeline.extract_audio import extract_audio
 from VideoQA_Pipeline.audio_to_text import audio_to_text
 
-video_path = "input_videos/Lecture1.mp4"
+video_path = "input_videos/Tutorial.mp4"
 
 # Step 1: Extract audio from video
 audio_path = extract_audio(video_path)

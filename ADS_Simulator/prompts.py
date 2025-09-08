@@ -9,29 +9,38 @@ Use the following strategy:
    - "From 0–7s, the car is stationary at a red light."
    - "From 14–18s, the vehicle initiates and completes a left turn."
 
-2. **Driving actions**: Focus on detecting meaningful driving behaviors such as:
-   - Car starts, stops, turns left/right, changes lanes
-   - Acceleration or deceleration
+2. **Driving actions**: Detect and describe meaningful driving behaviors such as:
+   - Starting, stopping, accelerating, decelerating
+   - Turning left/right, lane changing
    - Following or overtaking another vehicle
-   - Waiting at a stop sign or traffic light
+   - Waiting at traffic lights or stop signs
 
 3. **Environmental context**:
-   - Identify road type (city street, highway, intersection, etc.)
-   - Note presence of traffic signs, signals, parked cars, pedestrians, and nearby vehicles
-   - Mention weather or visibility conditions if evident
+   - Identify road topology (e.g., straight, curved, intersection, highway)
+   - Note presence of road signs (e.g., stop, yield, speed limit), signals, pedestrians, parked or moving vehicles
+   - Mention weather or visibility conditions if visible
 
-4. **Event reasoning**: Use visual indicators to infer intent or upcoming behavior, such as:
-   - Right/left turn signals
-   - Brake lights
-   - Vehicle body tilt
-   - Steering wheel angle or mirror position
-   - Speedometer or dashboard indicators
+4. **Dashboard and speed cues**:
+   - Pay close attention to the vehicle's dashboard (bottom-right corner), including **current speed**, **brake indicators**, and **turn signals**
+   - Check for **speed limit signs** in the environment and compare with current speed
+   - If the car is exceeding the posted speed, mention it as a potential **speeding violation**
 
-5. **Anomaly detection**: If anything appears to be a traffic rule violation or unsafe behavior (e.g., failing to stop, cutting off another car, ignoring signs), call it out clearly.
+5. **Violation detection**: Explicitly identify any behavior that may violate traffic rules. The following violation types are of special interest:
+   - **Failure to stop at stop sign**
+   - **Running a red light**
+   - **Failure to yield** (to pedestrians or other vehicles)
+   - **Speeding**
+   - **Illegal lane change**
+   - (If no rule is violated, state that the behavior appears normal)
 
-You will now receive a list of timestamped frames, followed by 10 visual frames. Each frame corresponds to a specific timestamp (e.g., "frame_0-7s.png"). Use these timestamps to associate image cues with driving behavior.
+6. **Intent inference**: Use clues like brake lights, turn signals, vehicle tilt, or wheel alignment to anticipate the car's intent.
 
-Write a coherent paragraph-level summary of what occurred during the entire range. Mention transitions (start, stop, turn), the reasoning for them (e.g., signal, traffic, blockage), and annotate any rule violations you detect.
+You will now receive 10 consecutive video frames, each with its own timestamp (e.g., "frame_10–13s.png"). These frames span a continuous driving segment. Write a fluent, timestamp-anchored description of what happened during the whole period.
+
+Structure your response as a paragraph-level explanation. Be sure to:
+- Mention transitions (start, stop, turn, acceleration)
+- Comment on relevant road and traffic context
+- Identify **any potential violations** if they occur, and briefly explain the evidence
 """
 
 NARRATION_CONSTRUCTION_PROMPT = """
@@ -72,4 +81,41 @@ Only include events relevant to driving behavior or environment. Ignore non-driv
 
 Frame Descriptions:  
 {retrieved_context}
+"""
+
+CONCEPT_EXTRACTION_BATCH_PROMPT = """
+You are an assistant trained to extract structured driving concepts from timestamped driving narrations in batches.
+
+Each narration describes what happened in a short time window in a self-driving simulation. For each narration, extract the following fields and output a JSON object per line:
+
+### Fields to extract per narration:
+
+- `timestamp`: Use the timestamp from the narration.
+- `violation_label`: True if the narration indicates a traffic violation; False otherwise.
+- `violation_type`: Choose from the following **exact labels**:
+  "stop_sign_violation", "red_light_violation", "yield_violation", 
+  "speeding_violation", "illegal_lane_change", or "normal" (if no violation)
+- `vehicle_action`: One of:
+  "ACCELERATE", "DECELERATE", "MAINTAIN_SPEED", "STOP"
+- `brake_engaged`: True if brake lights, slowing down, or stopping is described; False otherwise.
+- `vehicle_speed_mph`: Extract the number if mentioned (e.g., "accelerates to 41 mph"); else null.
+- `stop_sign_visible`: True if a stop sign is mentioned; else False.
+- `traffic_light_visible`: True if a traffic light is mentioned; else False.
+- `road_topology`: One of: "straight", "intersection", "turn", "merge", "crosswalk"
+- `pedestrian_visible`: True if pedestrians are mentioned; else False.
+- `yield_sign_visible`: True if a yield sign is mentioned; else False.
+
+### Instructions:
+
+- Return a valid JSON object per narration in the exact order received.
+- Do not add extra commentary or explanation.
+- If a concept is not mentioned, use `false` or `null` as appropriate.
+
+---
+
+### Narration Batch:
+
+{narration_batch}
+
+Please output the structured JSON list below:
 """

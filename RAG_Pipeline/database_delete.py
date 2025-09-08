@@ -26,3 +26,10 @@ def delete_video_collection(video_name: str) -> bool:
     else:
         print(f"⚠️ Collection not found: {collection_name}")
         return False
+
+collections = utility.list_collections()
+print("📂 Collections in current DB:", collections)
+
+# delete_video_collection("videoqa_Lecture3")
+
+
