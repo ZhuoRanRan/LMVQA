@@ -1,4 +1,0 @@
-{
-  "video_name": "stop_sign1",
-  "narration": "Here is the structured, timestamp-aligned narration based on the provided descriptions:\n\n---\n\n[0–5s] ACCELERATE: The car slightly increases speed while driving uphill on a straight urban road with a noticeable incline. It remains centered in the lane, with no visible pedestrians, vehicles, or obstacles.\n\n[0–9s] VIOLATION: The car maintains a speed between 48–52 mph, exceeding the typical urban speed limit of 25–35 mph, indicating a speeding violation.\n\n[5–9s] SIGNAL: The car approaches an intersection with a visible stop sign on the right side of the road.\n\n[5–9s] VIOLATION: The car fails to stop at the stop sign, crossing the intersection without slowing down or activating its brake lights. No cross-traffic or pedestrians are present, but this constitutes a failure to stop.\n\n---\n\nThis narration captures all key driving events and violations in a concise, structured format."
-}
