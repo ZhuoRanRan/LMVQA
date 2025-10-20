@@ -6,21 +6,30 @@ venv/
 .vscode/
 **.pdf
 .DS_Store
+.deepeval/
+
+outputs/**
+outputs/Chunks/.DS_Store
+!outputs/Chunks/
+!outputs/Chunks/**
+
+/outputs/extracted_audios/*.wav
+F7.wav
 Lecture.mp4
 Tutorial_2.mp4
 Tutorial.mp4
-docker-compose-deployment.yml
 Lecture1.mp4
 Lecture1.wav
-Tutorial.wavinput_videos/*.mp4
-input_videos/*.mp4
+Lecture3.wav
+Tutorial.wav
+input_videos/
 
 Ciena_Datasets/
 Ciena_Video/
 Ciena_Eval_Datasets/
 Ciena_Eval_Results/
 ADS_input_videos/
+/input_videos/
 
-/outputs/*
-!/outputs/Chunks/
-!/outputs/Chunks/**
+/Lecture_Video/
+.deepeval/*
