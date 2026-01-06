@@ -10,9 +10,10 @@ venv/
 video_env
 
 outputs/**
-outputs/Chunks/.DS_Store
-!outputs/Chunks/
-!outputs/Chunks/**
+
+gcm-diagnose.log
+autoVideo.bat
+run_gpt5_batch.bat
 
 /outputs/extracted_audios/*.wav
 F7.wav
