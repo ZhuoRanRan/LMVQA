@@ -25,3 +25,6 @@ pandas
 uvicorn
 fastapi
 streamlit
+scikit-image
+
+matplotlib

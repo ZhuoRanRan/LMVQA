@@ -6,6 +6,32 @@ from PIL import Image
 from skimage.metrics import structural_similarity as ssim
 from VideoQA_Pipeline.utils import get_video_duration, classify_video_type
 
+# ===== Windows-safe filename helpers =====
+# Windows 禁止的字符：< > : " / \ | ? *
+INVALID_CHARS = '<>:"/\\|?*'
+
+def _safe_segment(start_s, end_s):
+    """Return a safe segment string like '12s-34s'."""
+    # 避免出现 None 或奇怪字符，这里只用整数秒并加 s 后缀
+    try:
+        a = int(start_s)
+    except Exception:
+        a = 0
+    try:
+        b = int(end_s)
+    except Exception:
+        b = a
+    return f"{a}s-{b}s"
+
+def _safe_placeholder(start_s):
+    """Return a placeholder segment like '12s-TBD'."""
+    try:
+        a = int(start_s)
+    except Exception:
+        a = 0
+    return f"{a}s-TBD"
+
+
 def extract_video_frames(video_path, ssim_threshold=0.85):
     """
     Extract key frames from a video based on SSIM & histogram similarity.
@@ -73,14 +99,27 @@ def extract_video_frames(video_path, ssim_threshold=0.85):
         prev_frame_gray = gray_frame
         pil_image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
-        # Ensure correct timestamp in filename
+        # 如果已经有上一张帧文件，给它补全结束时间（用当前 sec 作为结束）
         if frames:
             old_filename = frame_filenames[-1]
-            new_filename = old_filename.split("_")[0] + f"_{last_saved_time}-{sec}s.png"
-            os.rename(os.path.join(output_dir, old_filename), os.path.join(output_dir, new_filename))
-            frame_filenames[-1] = new_filename
+            base = old_filename.split("_")[0]  # 'frame_001'
+            # 上一帧段：last_saved_time -> 当前 sec
+            new_filename = f"{base}_{_safe_segment(last_saved_time, sec)}.png"
+            try:
+                os.rename(os.path.join(output_dir, old_filename),
+                          os.path.join(output_dir, new_filename))
+                frame_filenames[-1] = new_filename
+            except FileExistsError:
+                # 保险：若目标已存在，则在其后缀加个 _dup
+                new_filename = f"{base}_{_safe_segment(last_saved_time, sec)}_dup.png"
+                os.rename(os.path.join(output_dir, old_filename),
+                          os.path.join(output_dir, new_filename))
+                frame_filenames[-1] = new_filename
 
-        frame_filename = f"frame_{len(frames)+1:03d}_{sec}-?.png"
+        # 当前帧先用 TBD 占位（避免非法字符 ?）
+        idx = len(frames) + 1
+        placeholder = _safe_placeholder(sec)
+        frame_filename = f"frame_{idx:03d}_{placeholder}.png"
         frame_path = os.path.join(output_dir, frame_filename)
         pil_image.save(frame_path)
 
@@ -93,9 +132,17 @@ def extract_video_frames(video_path, ssim_threshold=0.85):
     # ✅ Update last frame timestamp to cover until the end of the video
     if frames:
         old_filename = frame_filenames[-1]
-        new_filename = old_filename.split("_")[0] + f"_{last_saved_time}-{int(duration)}s.png"
-        os.rename(os.path.join(output_dir, old_filename), os.path.join(output_dir, new_filename))
-        frame_filenames[-1] = new_filename
+        base = old_filename.split("_")[0]  # 'frame_XXX'
+        new_filename = f"{base}_{_safe_segment(last_saved_time, int(duration))}.png"
+        try:
+            os.rename(os.path.join(output_dir, old_filename),
+                      os.path.join(output_dir, new_filename))
+            frame_filenames[-1] = new_filename
+        except FileExistsError:
+            new_filename = f"{base}_{_safe_segment(last_saved_time, int(duration))}_dup.png"
+            os.rename(os.path.join(output_dir, old_filename),
+                      os.path.join(output_dir, new_filename))
+            frame_filenames[-1] = new_filename
 
     video_type = classify_video_type(frames, duration)
     print(f"✅ Extracted {len(frames)} key frames. Video classified as: {video_type}")

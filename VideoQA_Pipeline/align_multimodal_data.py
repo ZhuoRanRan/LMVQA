@@ -1,7 +1,7 @@
 import os
 import json
 from RAG_Pipeline.RagRetriever_Milvus import RagRetrieverMilvus
-from VideoQA_constants.prompts import RAG_PROMPT_TEMPLATE_NORMAL_ACTION, RAG_PROMPT_TEMPLATE_QA_GENERATE
+from VideoQA_constants.prompts import RAG_PROMPT_TEMPLATE_NORMAL_ACTION, RAG_PROMPT_TEMPLATE_QA_GENERATE, RAG_PROMPT_TEMPLATE_QA_WITH_GROUNDING
 
 def format_chunks(chunks):
     """
@@ -37,7 +37,7 @@ def load_all_chunks(video_name):
 
     return "\n".join(lines)
 
-def align_multimodal_data(multimodal_context, user_question, use_full_context=False, top_k=50):
+def align_multimodal_data(multimodal_context, user_question, use_full_context=False, top_k=150):
     """
     Build final prompt using either full-context or top-k retrieved chunks from Milvus.
     If Milvus collection is empty, automatically build it from all_chunks.jsonl.
@@ -57,7 +57,7 @@ def align_multimodal_data(multimodal_context, user_question, use_full_context=Fa
         retrieved_context = format_chunks(top_chunks)
 
     # prompt_template = RAG_PROMPT_TEMPLATE_NORMAL_ACTION
-    prompt_template = RAG_PROMPT_TEMPLATE_QA_GENERATE
+    prompt_template = RAG_PROMPT_TEMPLATE_QA_WITH_GROUNDING
     return prompt_template.format(
         video_duration=video_duration,
         retrieved_context=retrieved_context,

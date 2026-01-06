@@ -7,6 +7,7 @@ venv/
 **.pdf
 .DS_Store
 .deepeval/
+video_env
 
 outputs/**
 outputs/Chunks/.DS_Store
@@ -33,3 +34,13 @@ ADS_input_videos/
 
 /Lecture_Video/
 .deepeval/*
+/Lecture_Datasets/
+/Lecture_Eval_Datasets/
+/Lecture_Eval_Results/
+/ADS_input_videos/
+/ADS_Simulator/
+/ActionVideoQA_Pipeline/
+/Ciena_Eval_Datasets_gpt5/
+/Ciena_Eval_Results_gpt5/
+/Decoupled_Modules/
+/outputs/

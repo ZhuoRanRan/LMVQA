@@ -1,4 +1,4 @@
-# qa_generate_gpt4o.py
+# qa_generate_gpt5.py
 # -*- coding: utf-8 -*-
 """
 Generate predictions for a given video & dataset, and write a predictions CSV
@@ -8,7 +8,7 @@ Notes:
 - retrieval_context is built by querying Milvus via RagRetrieverMilvus for each question,
   taking top-K short chunks (default K=5), trimming each to a max number of chars,
   and joining them with " ||| ".
-- Keep the answering path exactly as before (AskVideoQAGPT4o).
+- Keep the answering path exactly as before (AskVideoQAGPT5).
 """
 
 import os
@@ -18,7 +18,8 @@ from time import perf_counter
 from typing import Tuple, List
 from statistics import mean, median, pstdev
 import argparse
-from VideoQA_Pipeline.askVideoQA_gpt4o import AskVideoQAGPT4o
+
+from VideoQA_Pipeline.askVideoQA_gpt5 import AskVideoQAGPT5
 from RAG_Pipeline.RagRetriever_Milvus import RagRetrieverMilvus
 
 
@@ -85,20 +86,19 @@ def _join_context(chunks, k: int = TOP_K, max_chars: int = MAX_CHARS_PER_CHUNK) 
 
 # ------------------------- main -------------------------
 
-def main(video_path):
+def main(video_path: str):
     # -------- paths / params --------
-    #video_path = "Ciena_Video/Ciena4.mp4"
     dataset_path = None
-    eval_dir = "Lecture_Eval_Datasets"
-    model_name = "gpt-4o"
-    max_tokens = 5000
+    eval_dir = "Ciena_Eval_Datasets_gpt5"  # keep gpt-5 results separate from gpt-4o
+    model_name = "gpt-5"
+    max_tokens = 5000  # kept for signature parity; AskVideoQAGPT5 will NOT send token params to GPT-5
 
     video_name = os.path.splitext(os.path.basename(video_path))[0]
 
     # resolve dataset path
     if dataset_path is None:
-        cand_csv = os.path.join("Lecture_Datasets", f"{video_name}.csv")
-        cand_xlsx = os.path.join("Lecture_Datasets", f"{video_name}.xlsx")
+        cand_csv = os.path.join("Ciena_Datasets", f"{video_name}.csv")
+        cand_xlsx = os.path.join("Ciena_Datasets", f"{video_name}.xlsx")
         if os.path.exists(cand_csv):
             dataset_path = cand_csv
         elif os.path.exists(cand_xlsx):
@@ -115,14 +115,14 @@ def main(video_path):
     ground_truths = df[gt_col].astype(str).tolist()
 
     # -------- load video artifacts / ensure chunks & embeddings exist --------
-    qa = AskVideoQAGPT4o(model_name=model_name, max_tokens=max_tokens)
+    qa = AskVideoQAGPT5(model_name=model_name, max_tokens=max_tokens)
     context = qa.load_video_data(video_path)  # will ensure chunks and Milvus embeddings exist
 
     # Create retriever bound to current video_name for retrieving context
     retriever = RagRetrieverMilvus(video_name)
 
     # -------- answer & build retrieval_context --------
-    print(f"📊 Starting GPT-4o QA generation for {video_name} ...")
+    print(f"📊 Starting GPT-5 QA generation for {video_name} ...")
     answers: List[str] = []
     ctx_strings: List[str] = []
     per_q_seconds: List[float] = []
@@ -176,15 +176,15 @@ def main(video_path):
         "question": questions,
         "prediction": answers,
         "ground_truth": ground_truths,
-        "retrieval_context": ctx_strings,          # existing column
-        "latency_seconds": per_q_seconds,          # NEW per-question latency (answer + retrieval)
+        "retrieval_context": ctx_strings,
+        "latency_seconds": per_q_seconds,   # per-question latency (answer + retrieval)
     })
     df_out.to_csv(out_path, index=False, encoding="utf-8")
     print(f"\n✅ Predictions saved to {out_path}")
     print(f"   - retrieval_context: top_k={TOP_K}, max_chars_per_chunk={MAX_CHARS_PER_CHUNK}")
 
     # -------- write timing JSON (expanded) --------
-    results_dir = os.path.join("Lecture_Eval_Results", "Run_time")
+    results_dir = os.path.join("Ciena_Eval_Results_gpt5", "Run_time")
     os.makedirs(results_dir, exist_ok=True)
     timing_path = os.path.join(results_dir, f"{video_name}_timing.json")
 
@@ -226,10 +226,7 @@ def main(video_path):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run GPT-4o QA generation with video input.")
+    parser = argparse.ArgumentParser(description="Run GPT-5 QA generation with video input.")
     parser.add_argument("video_path", type=str, help="Path to the video file.")
-
     args = parser.parse_args()
-
-    # Pass the video_path argument to the main function
     main(video_path=args.video_path)
