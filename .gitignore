@@ -49,3 +49,16 @@ ADS_input_videos/
 
 !/Lecture_Datasets/
 !/Lecture_Eval_Results/
+
+actionvideo_main.py
+# local scripts / utils (do not commit)
+/eval_main.py
+/ads_main.py
+/actionvideo_main.py
+/eval_plot_nonef1.py
+/eval_plot.py
+/qa_generate_gpt4o.py
+/qa_generate_gpt5.py
+/show_database.py
+/verify_openai_env.py
+/evaluation_pipeline/
