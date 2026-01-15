@@ -90,7 +90,7 @@ def main(video_path):
     #video_path = "Ciena_Video/Ciena4.mp4"
     dataset_path = None
     eval_dir = "Lecture_Eval_Datasets"
-    model_name = "gpt-4o"
+    model_name = "gpt-4o-model"
     max_tokens = 5000
 
     video_name = os.path.splitext(os.path.basename(video_path))[0]

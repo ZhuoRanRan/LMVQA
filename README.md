@@ -21,15 +21,14 @@ This project runs on Python 3.11.10 with the following key dependencies:
 
 ---
 
-## 2. Obtain LiteLLM API key
+## 2. Configure OpenAI API key (direct, no proxy)
 
 ```
-# LiteLLM Proxy Configuration
-LITELLM_API_KEY=your_litellm_api_key_here
-LITELLM_API_BASE=http://10.186.2.129:4000/
+# OpenAI Configuration
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-See `.env.example` for more details.
+See `example.env` for more details (copy it to `.env` locally).
 
 ## 3.Test each part of Pipeline 
 
@@ -110,7 +109,7 @@ python ask_video_main_gpt4o.py --video <video_path> --question "<your_question>"
 
 - ```input_videos/``` Directory where raw MP4 videos are placed
 
-- ```RAG_Pipeline``` Contains RAG logic using text-embedding-3-large and Ciena's Milvus backend
+- ```RAG_Pipeline``` Contains RAG logic using text-embedding-3-large-model and Ciena's Milvus backend
 
 - ```VideoQA_Pipeline``` Core pipeline scripts and orchestration logic for VideoQA task
 

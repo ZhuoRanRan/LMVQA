@@ -26,9 +26,9 @@ from VideoQA_constants.prompts import (  # type: ignore
 )
 
 # ---------- Config (env-overridable, identical to feat) ----------
-LIGHTGPT_MODEL = os.getenv("LIGHTGPT_MODEL", "gpt-4o-mini")
-NON_DIAGRAM_CAPTION_MODEL = os.getenv("NON_DIAGRAM_CAPTION_MODEL", "gpt-4o")
-DIAGRAM_CAPTION_MODEL     = os.getenv("DIAGRAM_CAPTION_MODEL", "gpt-5")
+LIGHTGPT_MODEL = os.getenv("LIGHTGPT_MODEL", "gpt-4o-mini-model")
+NON_DIAGRAM_CAPTION_MODEL = os.getenv("NON_DIAGRAM_CAPTION_MODEL", "gpt-4o-model")
+DIAGRAM_CAPTION_MODEL     = os.getenv("DIAGRAM_CAPTION_MODEL", "gpt-5-model")
 DIAGRAM_THRESHOLD = float(os.getenv("DIAGRAM_THRESHOLD", "0.65"))
 CAPTION_MAX_TOKENS = int(os.getenv("CAPTION_MAX_TOKENS", "1200"))  # for non-gpt-5
 ROUTER_LOG_NAME = os.getenv("ROUTER_LOG_NAME", "diagram_flags.jsonl")

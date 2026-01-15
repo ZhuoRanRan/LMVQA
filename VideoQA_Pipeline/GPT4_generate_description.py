@@ -1,22 +1,16 @@
 # VideoQA_Pipeline/GPT4_generate_description.py
-# Use company gateway (LiteLLM-compatible) OpenAI client and pass it into the router.
+# Use a direct OpenAI client and pass it into the router.
 # Restores per-frame logging: prints which model was used and the routing decision.
 # All other logic remains unchanged.
 
 import os
 import json
 import re
-from dotenv import load_dotenv
-from openai import OpenAI
+from openai_client import get_openai_client
 from VideoQA_Pipeline.diagram_router import route_and_caption_image_path
 
-# Load environment and build OpenAI client (LiteLLM-compatible)
-load_dotenv()
-_BASE_URL = os.getenv("LITELLM_API_BASE") or os.getenv("OPENAI_BASE_URL") or os.getenv("OPENAI_API_BASE")
-_API_KEY  = os.getenv("LITELLM_API_KEY")  or os.getenv("OPENAI_API_KEY")
-if not _API_KEY:
-    raise RuntimeError("Missing API key. Set LITELLM_API_KEY or OPENAI_API_KEY in .env")
-client = OpenAI(api_key=_API_KEY, base_url=_BASE_URL) if _BASE_URL else OpenAI(api_key=_API_KEY)
+# Build OpenAI client (direct; no LiteLLM proxy env vars)
+client = get_openai_client()
 
 def _extract_timestamp_token(filename: str) -> str:
     """Return token like '12s-34s' from a frame filename 'frame_XXX_12s-34s.png'."""

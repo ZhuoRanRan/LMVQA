@@ -1,0 +1,71 @@
+question,gt
+What topic does the lecturer say they will focus on today regarding behavioral models?,UML state machines
+"According to the lecture, what three elements can a state-machine transition have?",trigger guard effect
+"In the heater–room example, which two room temperature thresholds are mentioned as guards?",18 and 22 degrees
+What does the lecturer call a transition with no trigger that fires when a state’s behavior completes?,completion transition
+"When discussing compound states, which event is said to take priority over inner sub-state events?","the outer compound_state event (e.g., disconnect)"
+"On the garage door state machine, which event label leads from Opening back to Open?",reachTop
+"In the garage door diagram, what event can take Closing to Opening?",buttonOrObstacle
+"In the garage door diagram, which state lies directly below Opening?",HalfOpen
+"In the “In State Machines” mini-diagram, what is the canonical transition label format shown over the arrow?",Trigger [Guard] / Effect
+"In the “SUBJECTS” slide sketch, which two agent boxes are drawn on the right side?",Agent1 and Agent2
+"On the “STATES” slide fragment, which example state is shown receiving two incoming “buttonOrObstacle” arrows?",HalfOpen
+"On the “COMPLETION TRANSITIONS” diagram, which state has a self-transition labeled after 2 seconds?",Idle
+"In the same diagram, which event takes the system from Tracking to Engaging?",contact
+"On the “COMPOUND STATES” example, what event moves from Disconnected to Connected?",connect
+"Inside the Connected compound state, which event moves Waiting to ProcessingByte?",receiveByte
+"In the “COMPOUND STATES EXAMPLE” with Checking PIN, which guard leaves the compound to Searching Network?",[pin OK]
+"In that PIN example, which guard loops back from the decision to Entering PIN?",[pin invalid]
+"In the “HISTORY STATES” washing machine, what is the order of the three substates inside Running?",Washing Rinsing Spinning
+"In the same washing machine diagram, which symbol resumes the last active sub-state after power is restored?",the history state H
+"In the alternative exit example, what is the name of the border exit that leads to Writing Error Report?",Failed to Read
+What name appears as the speaker on the early black screen label?,Shiva Nejati
+What section title is shown at 15–213s introducing the topic?,UML State Machines
+What two action labels appear in the activity-diagram example nodes?,Send Payment and Accept Payment
+"On the early star map, name one of the two bright stars labeled in Gemini.",Castor or Pollux
+Which university logo is visible on many slides?,uOttawa
+What course code appears on the slides?,SEG2106
+"In the state-actions example state, what are the On Entry and On Exit actions listed for Receiving?",On Entry pickup; On Exit disconnect
+What slide title is shown at 298–300s contrasting two diagram types?,ACTIVITY DIAGRAMS VS STATE MACHINES
+"Between 540–541s, which three terms appear in the example transition label format?",Trigger Guard Effect
+"At 1238–1239s, what timer text and effect are shown on the self-transition into Waiting?",after 2 seconds / poll input
+"Around 1411–1414s, which four states form the main flow on the completion-transition example?",Idle Searching Tracking Engaging
+"At 1612–1615s, what is the definition of a guard condition given on the slide?",a Boolean expression in square brackets placed after the trigger
+"In one sentence, what is the key difference between activity diagrams and state machines emphasized in the lecture?",activity diagrams show sequences of actions while state machines show sequences of states
+How are synchronous vs asynchronous communication modeled on transitions according to the lecture?,synchronous as operation calls; asynchronous as sending signals or messages
+"What is the purpose of a history state in a compound state, as explained with the washing machine?",to resume the last active sub-state on reentry instead of restarting from the initial sub-state
+What UML pseudostate is used to remember and resume the last active substate inside a composite state?,The history pseudostate “H”.
+"In the washing-machine example, which two events move the system from “Running” to “Powered Off” and back into “Running”?",“power cut” to leave Running; “restore power” to re-enter via history.
+"In a compound state, what does a dashed horizontal line indicate?",Concurrent (orthogonal) regions inside the composite state.
+"In the “Applying Brakes” example, what are the names of the two concurrent regions?",“Applying Front Brakes” and “Applying Rear Brakes”.
+"In the lecture’s terminology, what is the key difference between an OR state and an AND state?",OR = only one substate active (sequential); AND = multiple regions active concurrently (cross product of states).
+"When two regions each have states {A,B} and {C,D}, what four combined global states are possible under concurrency?","(A&C), (A&D), (B&C), (B&D)."
+"In the Maintenance example, which event from Idle forks into the two regions?",maintain.
+Which event from Idle goes directly to the final (termination) state?,shutDown.
+"In the upper “Testing” region, which two states and completion events are shown?",“Testing devices” _(testingCompleted)_ “Self diagnosing” _(diagnosisCompleted)_ join.
+"In the lower “Commanding” region, which guard causes a loop back to Waiting after Processing Command?",commandProcessed [continue].
+"In that lower region, which guarded transition exits to the join bar?",commandProcessed [not continue].
+"In the CD player “On” composite, what are the two display states in the top region?",Displaying Current Time; Displaying Alarm Time.
+What timer duration appears on the transition back to “Displaying Current Time”?,3 seconds (“Timer (3 s)”).
+"In the bottom (audio) region of “On,” what are the two playback states?",Playing Radio; Playing CD.
+"In the CD player example, the history pseudostate applies to which region?",The lower audio region only.
+"In that example, what events toggle between Off and On at the outer level?","On (off _ On), and Off (On _ off)."
+"When re-entering “On” from Off via history, what is the default target in the audio region?",Playing Radio.
+"In the refined motor model, what guard functions appear to indicate functioning vs. not functioning?",[isFunctioning()] and [!isFunctioning()].
+Name the five substates inside the motor’s “Running” composite.,"Open, Closing, Closed, Opening, HalfOpen."
+Which event and guard move the motor from Open to Closing?,buttonPressed() [isFunctioning()].
+Which event moves the motor from Closing to Closed?,doorClosed().
+Which alternative triggers (with guard) move the motor from Closing to Opening?,buttonPressed() [isFunctioning()] or obstacleDetected() [isFunctioning()].
+Which event moves the motor from Opening back to Open?,doorOpen().
+Which state toggles with buttonPressed() between itself and Opening?,HalfOpen.
+What external state represents the malfunction/repair mode?,WaitingForRepair.
+"What are the three transitions involving “WaitingForRepair” (enter, self-loop, return)?",Enter: buttonPressed() [!isFunctioning()]; self-loop: timer() [!isFunctioning()]; return: timer() [isFunctioning()].
+What is the sensor unit’s polling period?,20 ms.
+Which three conditions does the sensor unit check every cycle?,"Obstacle detected, door open, door closed."
+"In the Garage Door use case diagram, which two use cases include “Run Diagnosis”?",Open Door and Close Door.
+"In the “Run Diagnosis” use case, what is the pre-condition?",User has pressed the remote or wall-mounted control button.
+"In that use case, what happens if a check fails?",Wait 3 minutes and retry the checks.
+"In the “Open Door” use case, what happens if the door is currently opening?","Stop the door, leaving it half open."
+"In the “Close Door” use case, what happens if the door is currently opening?","Stop the door, leaving it half open."
+What modeling/tooling platform developed at uOttawa is introduced for model-oriented programming?,Umple (UMPLE).
+Which MathWorks tool (and feature) is mentioned as equivalent in spirit to UML state machines?,MATLAB Simulink with Stateflow.

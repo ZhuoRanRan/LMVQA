@@ -14,7 +14,8 @@ import math
 from typing import List, Tuple, Optional, Dict, Any
 
 from dotenv import load_dotenv
-from openai import OpenAI
+
+from openai_client import get_openai_client
 
 from deepeval.models import DeepEvalBaseLLM
 from deepeval.metrics import GEval
@@ -30,23 +31,9 @@ from VideoQA_constants.prompts import (
     # GEVAL_TRUTHFULNESS_STEPS,
 )
 
-# ------------------------- proxy / client wiring ONLY -------------------------
-
+# ------------------------- client wiring (direct OpenAI) -------------------------
 load_dotenv()
-
-# Prefer company LiteLLM gateway; fall back to plain OpenAI if not provided.
-_LITELLM_KEY  = os.getenv("LITELLM_API_KEY")
-_LITELLM_BASE = os.getenv("LITELLM_API_BASE")
-
-_OPENAI_KEY   = os.getenv("OPENAI_API_KEY")
-_OPENAI_BASE  = os.getenv("OPENAI_API_BASE") or os.getenv("OPENAI_BASE_URL")
-
-_api_key  = _LITELLM_KEY  or _OPENAI_KEY
-_base_url = _LITELLM_BASE or _OPENAI_BASE or None
-if not _api_key:
-    raise RuntimeError("No API key found. Set LITELLM_API_KEY (preferred) or OPENAI_API_KEY in .env")
-
-client = OpenAI(api_key=_api_key, base_url=_base_url) if _base_url else OpenAI(api_key=_api_key)
+client = get_openai_client()
 
 # ----------------------------- LLM wrapper -----------------------------
 
@@ -57,7 +44,7 @@ class GPT4oEvalLLM(DeepEvalBaseLLM):
     """
 
     def __init__(self, model_name: Optional[str] = None):
-        self.model_name = model_name or os.getenv("GEVAL_MODEL", "gpt-4o-mini")
+        self.model_name = model_name or os.getenv("GEVAL_MODEL", "gpt-4o-mini-model")
 
     def load_model(self):
         return self.model_name

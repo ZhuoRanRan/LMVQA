@@ -90,7 +90,7 @@ def main(video_path: str):
     # -------- paths / params --------
     dataset_path = None
     eval_dir = "Ciena_Eval_Datasets_gpt5"  # keep gpt-5 results separate from gpt-4o
-    model_name = "gpt-5"
+    model_name = "gpt-5-model"
     max_tokens = 5000  # kept for signature parity; AskVideoQAGPT5 will NOT send token params to GPT-5
 
     video_name = os.path.splitext(os.path.basename(video_path))[0]

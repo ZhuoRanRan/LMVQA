@@ -1,0 +1,10 @@
+metric,value
+status,success
+num_cases,70
+correctness_threshold,0.5
+correctness_mean,0.10142857142857141
+correctness_pass_rate(>=thr),0.11428571428571428
+correctness_min,0.0
+correctness_max,1.0
+correctness_median,0.0
+correctness_std,0.24581808438812006

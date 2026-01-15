@@ -1,8 +1,7 @@
 # VideoQA_Pipeline/askVideoQA_gpt4o.py
 import os
 import logging
-import openai
-from dotenv import load_dotenv
+from openai_client import get_openai_client
 from VideoQA_Pipeline.utils import (
     get_video_duration,
     classify_video_type,
@@ -72,35 +71,59 @@ def enforce_prompt_token_limit(prompt: str,
     logging.info(f"[TOK] Prompt tokens: {cur} -> {_approx_token_len(best)} (cap={hard_cap}).")
     return best
 
-load_dotenv()
-openai.api_key = os.getenv("LITELLM_API_KEY")
-openai.base_url = os.getenv("LITELLM_API_BASE")
+client = get_openai_client()
 
 MAX_INPUT_TOKENS = int(os.getenv("MAX_INPUT_TOKENS", "120000"))
 RESERVE_TOKENS   = int(os.getenv("RESERVE_TOKENS", "2048"))
 
 class AskVideoQAGPT4o:
-    def __init__(self, model_name="gpt-4o", max_tokens=5000):
+    def __init__(self, model_name="gpt-4o-model", max_tokens=5000):
         self.model = model_name
         self.max_tokens = max_tokens
 
-    def load_video_data(self, video_path):
-        video_name = os.path.splitext(os.path.basename(video_path))[0]
-        video_duration = get_video_duration(video_path)
+    def load_video_data(self, video_path: str | None = None, video_name: str | None = None, video_duration: float | None = None):
+        """
+        Load minimal metadata needed for asking questions.
+
+        - If Milvus already has a non-empty collection for this video, local `outputs/` artifacts are not required.
+        - `video_path` is only needed to compute duration reliably (and optionally infer video_type from local frames).
+        - `video_name` can be provided to query Milvus on machines without the original video file.
+        """
+        if not video_name:
+            if not video_path:
+                raise ValueError("Either `video_path` or `video_name` must be provided.")
+            video_name = os.path.splitext(os.path.basename(video_path))[0]
+
+        if video_duration is None:
+            video_duration = get_video_duration(video_path) if video_path else 0.0
 
         frame_dir = os.path.join("outputs", "frames", f"{video_name}_frames")
         frame_files = [f for f in os.listdir(frame_dir) if f.endswith(".png")] if os.path.exists(frame_dir) else []
-        video_type = classify_video_type(frame_files, video_duration)
+        # If this machine doesn't have local frame artifacts (common when relying on Milvus-only deployments),
+        # avoid misclassifying and just mark as unknown.
+        video_type = classify_video_type(frame_files, video_duration) if frame_files else "unknown"
 
         chunk_path = os.path.join("outputs", "chunks", video_name, "all_chunks.jsonl")
-        if not os.path.exists(chunk_path):
-            print(f"🧱 Chunks not found for video '{video_name}', building...")
-            build_chunks(video_name)
-
         retriever = RagRetrieverMilvus(video_name)
+
+        # If Milvus already has data for this video, we can answer questions without any local `outputs/` artifacts.
+        # This is important for multi-machine setups where preprocessing happens once and other machines only query.
         if retriever.collection.num_entities == 0:
-            print(f"🔍 Embeddings missing for '{video_name}', rebuilding...")
-            retriever.build_from_chunks()
+            if not os.path.exists(chunk_path):
+                print(
+                    f"🧱 Local chunks not found for '{video_name}'. Building chunks from local outputs/... artifacts..."
+                )
+                build_chunks(video_name)
+
+            if not os.path.exists(chunk_path):
+                print(
+                    f"❌ Still cannot find chunks at {chunk_path}. "
+                    f"If this is a fresh machine, run `main_gpt4o.py --video <path>` once to generate outputs and build Milvus, "
+                    f"or ensure you are connected to the same Milvus instance that already contains `videoqa_{video_name}`."
+                )
+            else:
+                print(f"🔍 Embeddings missing for '{video_name}', rebuilding from chunks...")
+                retriever.build_from_chunks()
 
         return {
             "video_name": video_name,
@@ -117,7 +140,7 @@ class AskVideoQAGPT4o:
             reserve_for_output=RESERVE_TOKENS
         )
 
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model=self.model,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.3,

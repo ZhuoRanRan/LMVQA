@@ -1,15 +1,17 @@
-import os, json, uuid, openai
+import os
+import json
+import uuid
+import time
 from typing import List
-from dotenv import load_dotenv
+
+from openai_client import get_openai_client
 from pymilvus import connections, Collection, FieldSchema, CollectionSchema, DataType, utility
 from RAG_Pipeline.database_delete import delete_video_collection
 
-load_dotenv()
-openai.api_key  = os.getenv("LITELLM_API_KEY")
-openai.base_url = os.getenv("LITELLM_API_BASE")
+client = get_openai_client()
 
 # Embedding
-EMBEDDING_MODEL   = "text-embedding-3-large"
+EMBEDDING_MODEL   = os.getenv("EMBEDDING_MODEL", "text-embedding-3-large-model")
 DEFAULT_DIM       = 3072
 EMBEDDING_OUT_DIM = int(os.getenv("EMBEDDING_OUT_DIM", str(DEFAULT_DIM)))
 
@@ -42,6 +44,11 @@ class RagRetrieverMilvus:
         self._ensure_collection(overwrite)
 
     def _connect(self):
+        try:
+            if connections.has_connection("default"):
+                return
+        except Exception:
+            pass
         if MILVUS_URI:
             if MILVUS_TOKEN:
                 connections.connect(alias="default", uri=MILVUS_URI, token=MILVUS_TOKEN, db_name=MILVUS_DB_NAME)
@@ -62,12 +69,73 @@ class RagRetrieverMilvus:
             return False
         return True
 
+    def _has_embedding_index(self, col: Collection) -> bool:
+        """
+        Milvus 2.x will throw `index not found` when calling `collection.load()` if
+        the vector index metadata is missing (common after migrations / old data).
+        """
+        try:
+            for idx in getattr(col, "indexes", []) or []:
+                field_name = getattr(idx, "field_name", None) or getattr(idx, "field", None)
+                if field_name == "embedding":
+                    return True
+        except Exception:
+            pass
+
+        # Fallback: older/newer pymilvus variants
+        try:
+            if hasattr(col, "has_index"):
+                return bool(col.has_index())  # type: ignore[arg-type]
+        except Exception:
+            pass
+        return False
+
+    def _ensure_embedding_index(self, col: Collection):
+        if self._has_embedding_index(col):
+            return
+
+        print(
+            f"🧩 Milvus collection '{self.collection_name}' exists but has no embedding index. "
+            f"Creating index (metric={MILVUS_METRIC}, index={MILVUS_INDEX_TYPE})..."
+        )
+        col.create_index(
+            field_name="embedding",
+            index_params={
+                "metric_type": MILVUS_METRIC,
+                "index_type": MILVUS_INDEX_TYPE,
+                "params": {"nlist": MILVUS_NLIST},
+            },
+        )
+        # Some Milvus deployments build index asynchronously; give it a moment so `load()` doesn't race.
+        time.sleep(0.2)
+
     def _ensure_collection(self, overwrite: bool = False):
         if utility.has_collection(self.collection_name):
-            if overwrite or not self._collection_compatible():
-                delete_video_collection(self.video_name)
+            if not self._collection_compatible():
+                if overwrite:
+                    delete_video_collection(self.video_name)
+                else:
+                    raise RuntimeError(
+                        f"Milvus collection '{self.collection_name}' exists but is incompatible with current settings "
+                        f"(likely embedding dim mismatch). Refusing to drop/rebuild automatically. "
+                        f"To rebuild, pass overwrite=True (or drop the collection manually)."
+                    )
             else:
-                self.collection = Collection(self.collection_name); self.collection.load(); return
+                self.collection = Collection(self.collection_name)
+                # Fix for migrated/legacy collections that exist but are missing vector index metadata.
+                self._ensure_embedding_index(self.collection)
+                try:
+                    self.collection.load()
+                except Exception as e:
+                    # If index creation is async or load raced, retry once after a short delay.
+                    msg = str(e)
+                    if "index not found" in msg.lower():
+                        self._ensure_embedding_index(self.collection)
+                        time.sleep(1.0)
+                        self.collection.load()
+                    else:
+                        raise
+                return
 
         print(f"🛠️ Creating Milvus collection: {self.collection_name}")
         fields = [
@@ -79,9 +147,14 @@ class RagRetrieverMilvus:
         ]
         schema = CollectionSchema(fields=fields, description=f"Multimodal chunks for {self.video_name}")
         collection = Collection(name=self.collection_name, schema=schema)
-        collection.create_index(field_name="embedding", index_params={
-            "metric_type": MILVUS_METRIC, "index_type": MILVUS_INDEX_TYPE, "params": {"nlist": MILVUS_NLIST}
-        })
+        collection.create_index(
+            field_name="embedding",
+            index_params={
+                "metric_type": MILVUS_METRIC,
+                "index_type": MILVUS_INDEX_TYPE,
+                "params": {"nlist": MILVUS_NLIST},
+            },
+        )
         print(f"✅ Index created on '{self.collection_name}' (metric={MILVUS_METRIC}, index={MILVUS_INDEX_TYPE})")
         self.collection = Collection(self.collection_name); self.collection.load()
 
@@ -98,7 +171,7 @@ class RagRetrieverMilvus:
             batch = clean[i:i+EMBED_BATCH_SIZE]
             kwargs = {}
             if EMBEDDING_OUT_DIM and EMBEDDING_OUT_DIM != 3072: kwargs["dimensions"] = EMBEDDING_OUT_DIM
-            resp = openai.embeddings.create(model=EMBEDDING_MODEL, input=batch, **kwargs)
+            resp = client.embeddings.create(model=EMBEDDING_MODEL, input=batch, **kwargs)
             vecs.extend([d.embedding for d in resp.data])
         return vecs
 

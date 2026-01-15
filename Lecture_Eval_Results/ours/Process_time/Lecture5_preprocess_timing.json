@@ -1,0 +1,5 @@
+{
+  "video_name": "Lecture5",
+  "preprocess_seconds": 15091.4869,
+  "note": "Timing covers process_video only (audio/video extraction, chunking, embeddings/RAG build). QA excluded."
+}

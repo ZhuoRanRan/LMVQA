@@ -4,12 +4,12 @@
 AskVideoQAGPT5: same pipeline as askVideoQA_gpt4o, but uses GPT-5 as the core LLM.
 IMPORTANT:
 - Do NOT send 'temperature' or any token params (max_tokens / max_completion_tokens) to GPT-5.
-- Client prefers company LiteLLM gateway (LITELLM_API_BASE / LITELLM_API_KEY), falls back to OPENAI_*.
+- Client uses direct OpenAI (OPENAI_API_KEY).
 """
 
 import os
-from dotenv import load_dotenv
-from openai import OpenAI
+
+from openai_client import get_openai_client
 
 from VideoQA_Pipeline.utils import (
     get_video_duration,
@@ -19,19 +19,8 @@ from VideoQA_Pipeline.build_chunks import build_chunks
 from VideoQA_Pipeline.align_multimodal_data import align_multimodal_data
 from RAG_Pipeline.RagRetriever_Milvus import RagRetrieverMilvus
 
-# ------------------------- client wiring (proxy first) -------------------------
-load_dotenv()
-_LITELLM_BASE = os.getenv("LITELLM_API_BASE")
-_LITELLM_KEY  = os.getenv("LITELLM_API_KEY")
-_OPENAI_BASE  = os.getenv("OPENAI_API_BASE") or os.getenv("OPENAI_BASE_URL")
-_OPENAI_KEY   = os.getenv("OPENAI_API_KEY")
-
-_api_key  = _LITELLM_KEY  or _OPENAI_KEY
-_base_url = _LITELLM_BASE or _OPENAI_BASE or None
-if not _api_key:
-    raise RuntimeError("No API key found. Set LITELLM_API_KEY (preferred) or OPENAI_API_KEY in .env")
-
-client = OpenAI(api_key=_api_key, base_url=_base_url) if _base_url else OpenAI(api_key=_api_key)
+# ------------------------- client wiring (direct OpenAI) -------------------------
+client = get_openai_client()
 
 
 class AskVideoQAGPT5:
@@ -42,7 +31,7 @@ class AskVideoQAGPT5:
       - asks GPT-5 for an answer (NO temperature / NO token params).
     """
 
-    def __init__(self, model_name: str = "gpt-5", max_tokens: int = 5000):
+    def __init__(self, model_name: str = "gpt-5-model", max_tokens: int = 5000):
         # NOTE: max_tokens is kept for signature parity but NOT sent to GPT-5.
         self.model = model_name
         self.max_tokens = max_tokens  # intentionally unused for GPT-5

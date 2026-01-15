@@ -1,6 +1,6 @@
 import os
-import openai
-from dotenv import load_dotenv
+
+from openai_client import get_openai_client
 from VideoQA_Pipeline.extract_audio import extract_audio
 from VideoQA_Pipeline.audio_to_text import audio_to_text
 from VideoQA_Pipeline.extracted_frames import extract_video_frames
@@ -10,12 +10,10 @@ from VideoQA_Pipeline.utils import get_video_duration, classify_video_type
 from VideoQA_Pipeline.align_multimodal_data import align_multimodal_data
 from RAG_Pipeline.RagRetriever_Milvus import RagRetrieverMilvus
 
-load_dotenv()
-openai.api_key = os.getenv("LITELLM_API_KEY")
-openai.base_url = os.getenv("LITELLM_API_BASE")
+client = get_openai_client()
 
 class VideoQAPipelineGPT4o:
-    def __init__(self, model_name="gpt-4o", max_tokens=5000):
+    def __init__(self, model_name="gpt-4o-model", max_tokens=5000):
         self.model = model_name
         self.max_tokens = max_tokens
 
@@ -48,7 +46,7 @@ class VideoQAPipelineGPT4o:
 
     def answer_question(self, multimodal_context, user_question):
         prompt = align_multimodal_data(multimodal_context, user_question)
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model=self.model,
             messages=[
                 {"role": "user", "content": prompt}

@@ -12,8 +12,8 @@ from io import BytesIO
 from typing import Optional
 from PIL import Image
 from dotenv import load_dotenv
-from openai import OpenAI
-import openai  # for chat fallback
+
+from openai_client import get_openai_client
 
 # Prompt import (same as feat)
 try:
@@ -22,15 +22,7 @@ except Exception:
     from VideoQA_constants.prompts import GPT5_DIAGRAM_PROMPT_TEMPLATE  # type: ignore
 
 load_dotenv()
-BASE_URL = os.getenv("LITELLM_API_BASE") or os.getenv("OPENAI_BASE_URL") or os.getenv("OPENAI_API_BASE")
-API_KEY  = os.getenv("LITELLM_API_KEY")  or os.getenv("OPENAI_API_KEY")
-if not API_KEY:
-    raise RuntimeError("Missing API key. Set LITELLM_API_KEY or OPENAI_API_KEY in .env")
-
-client = OpenAI(api_key=API_KEY, base_url=BASE_URL) if BASE_URL else OpenAI(api_key=API_KEY)
-openai.api_key = API_KEY
-if BASE_URL:
-    openai.base_url = BASE_URL
+client = get_openai_client()
 
 def resolve_frame_dir(video_name: str) -> str:
     upper = os.path.join("outputs", "Frames", f"{video_name}_frames")
@@ -90,14 +82,14 @@ def try_responses_caption(image_path: str, token: str) -> Optional[str]:
     }]
     try:
         resp = client.responses.create(
-            model="gpt-5",
+            model="gpt-5-model",
             instructions="You are a precise diagram/flowchart describer. Output plain English text only.",
             input=input_messages,
         )
     except Exception:
         input_messages[0]["content"][1] = {"type": "input_image", "file_id": up.id}
         resp = client.responses.create(
-            model="gpt-5",
+            model="gpt-5-model",
             instructions="You are a precise diagram/flowchart describer. Output plain English text only.",
             input=input_messages,
         )
@@ -120,8 +112,8 @@ def chat_fallback_caption(image_path: str, token: str) -> str:
             {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}
         ]
     }]
-    resp = openai.chat.completions.create(
-        model="gpt-5",
+    resp = client.chat.completions.create(
+        model="gpt-5-model",
         messages=messages,
     )
     return (resp.choices[0].message.content or "").strip()

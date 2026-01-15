@@ -18,7 +18,7 @@ def main():
         print(f"❌ Video file not found: {args.video}")
         return
 
-    pipeline = VideoQAPipelineGPT4o(model_name="gpt-4o", max_tokens=args.max_tokens)
+    pipeline = VideoQAPipelineGPT4o(model_name="gpt-4o-model", max_tokens=args.max_tokens)
 
     # --- timing only the preprocessing (process_video), excluding QA ---
     t0 = perf_counter()
