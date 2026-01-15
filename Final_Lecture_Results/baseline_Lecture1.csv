@@ -1,0 +1,41 @@
+question,prediction(model's answer),ground_truth(correct answer),Expert_Annotation1,Expert_Annotation 2,Final_Decision
+Which lecture of ITI 1121 is announced at the very beginning?,second,The second lecture,1,1,1
+What platform does the instructor expect students to monitor?,Piazza,Piazza,1,1,1
+Which assignment has already been posted?,Assignment 1,Assignment one,1,1,1
+What programming language will they start hands-on with today?,Java,Java,1,1,1
+Structured programming is also known as what?,procedural programming,Procedural programming,1,1,1
+What do we call routines in Java?,methods,Methods,1,1,1
+What does the instructor want interfaces to hide?,Details of object interactions and internal states.,Internal details,1,1,1
+Which general class abstracts both Student and Professor?,Person,Person,1,1,1
+Does Java allow multiple inheritance of classes?,No,No,1,1,1
+What major typing property of Java is highlighted?,Strong typing,Strongly typed,1,1,1
+In the Students class diagram what two sections are shown?,Attributes and Methods,Attributes and methods,1,1,1
+What color are the cross link arrows between Student and Professor?,No specific color is mentioned for the cross link arrows between Student and Professor in the provided text.,Red,0,0,0
+Which side of the slide contains the Student class box?,The textual descriptions do not specify the exact side of the slide where the Student class box is located.,Left,0,0,0
+How many cross link arrows are drawn between the two class boxes?,0,11,0,0,0
+Which class shows the misspelled method getEmployeID()?,nan,Professor,0,0,0
+In the TA inheritance diagram what is the top general class?,Person,Person,1,1,1
+In that TA diagram how many nodes are present?,0,4,0,0,0
+In that TA diagram how many inheritance edges?,0,4,0,0,0
+What UML symbol indicates generalization?,Hollow triangle,Hollow triangular arrowhead,1,1,1
+What aggregation link is shown in the e commerce diagram?,No specific aggregation link is described in the provided text.,Inventory _Ñ Item,0,0,0
+What multiplicity appears on the ShoppingCartÐItem connector?,Not specified,0..*,0,0,0
+What multiplicity appears on the CustomerÐAddress connector?,Not specified,1..*,0,0,0
+What operation name appears in PaymentProcessing?,No operation name appears in PaymentProcessing.,processPayment(...): boolean,0,0,0
+In the data types table what two categories are distinguished?,Primitive and Reference,Primitive and reference,1,1,1
+In the array memory diagram what default element value is shown?,0,0,1,1,1
+What is the course code on the introduction slide?,ITI 1121,ITI 1121,1,1,1
+Name the primary author on the slides.,Not available,Mehrdad (Mike) Sabetzadeh,0,0,0
+Name one contributor besides the author.,No contributors besides the author are mentioned.,G. V. Jourdan,0,0,0
+Name another listed contributor.,No other contributor is listed.,M. Turcotte,0,0,0
+Give the version date on the intro slide.,Not available,January 15 2022,0,0,0
+What is the title of the slide introducing variables?,Variables,Variables,1,1,1
+What guiding question appears under that title?,No guiding question appears under the title.,What is a variable?,0,0,0
+Name one outline topic shown on the lecture header.,Java Programming,Primitive vs reference types,0,0,0
+What is the filename of the Java class in the live coding demo?,Constant.java,Constant.java,1,1,1
+Which two fields are declared in that class?,"name, value",name and value,1,1,1
+What method is used to print output in the code?,System.out.println,System.out.println,1,1,1
+What string name is used when constructing the Constant?,golden ratio,golden ratio,1,1,1
+What slide number is shown on the Variables slide?,Frame 1324,3,0,0,0
+What filename label appears in the PDF viewer during the lecture?,No filename label is mentioned in the descriptions provided.,Lecture-2C,0,0,0
+What is the title of the slide that sketches the shop system?,Shop System Sketch,E-Commerce Web Site,0,0,0

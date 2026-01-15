@@ -47,9 +47,6 @@ ADS_input_videos/
 /outputs/
 
 
-!/Lecture_Datasets/
-!/Lecture_Eval_Results/
-
 actionvideo_main.py
 # local scripts / utils (do not commit)
 /eval_main.py
