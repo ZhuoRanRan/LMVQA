@@ -1,0 +1,130 @@
+question,prediction,ground_truth,Expert_Annotation1,Expert_Annotation2,Final_Decision
+What does the lecturer say right at the start about recording and sharing?,Start the recording and start sharing my screen.,The lecturer says ÒStart the recording and start sharing my screen.Ó,1,1,1
+When do labs begin according to the announcements?,Labs begin next week.,Labs start next week; there are no labs this week.,1,1,1
+What change was mentioned about a lab location?,"There was a change in the location for one of the labs, lab A1.",One lab (A1) changed rooms within the same SITE building.,1,1,1
+What must a teammate explicitly state if only one member attends the lab?,As long as your teammate actually clearly specifies that the work is done in collaboration with both members.,That the work was done collaboratively by both members.,1,1,1
+Which previous lecture topic did the instructor reference before starting domain analysis?,Process modeling.,"Process modeling (e.g., waterfall, iterative, agile) posted on Brightspace.",1,1,1
+What sequence of process models does the lecturer list from traditional to modern?,Waterfall process model → Iterative approaches → Agile practices,Waterfall _ iterative approaches _ agile practices.,1,1,1
+"Over the next several lectures, which behavioral modeling notations does the instructor say will be covered?","The instructor mentions the following behavioral modeling notations that will be covered over the next several lectures:
+
+1. **Activity Diagram**
+2. **State Machine**
+3. **PetriNet**
+4. **SDL**","Activity diagrams, state machines, Petri Nets, SDL.",1,1,1
+What is the main goal of domain analysis as described by the lecturer?,"The main goal of domain analysis, as described by the lecturer, is to understand the problem's domain independently of the specific system being developed. This includes acquiring sufficient background information about the general field (domain) in which the customer expects to use the software, avoiding strict boundaries between the system and its environment, and focusing on the concepts and terminology of the application domain with a broader scope than the future system. It is emphasized that the purpose is not to become a domain expert but to gather enough information to effectively communicate with stakeholders, understand user needs, and anticipate future system extensions.","To learn background/context, concepts, and terminology to communicate with stakeholders before deciding feasibility.",1,1,1
+What three high-level requirement types does the lecturer list?,"Customer requirements, functional requirements, non-functional requirements.","Customer requirements, functional requirements, non-functional requirements.",1,1,1
+"In agile contexts, how are requirements commonly captured per the lecturer?","In agile contexts, requirements are commonly captured using **user stories**. A **user story** is a high-level definition of a requirement that provides a simple description of a feature from the perspective of the user who desires the capability. User stories are initially written with enough information for developers to estimate the effort required during product backlog creation. Additional details can be refined later through consultation with the customer. A standard template for user stories is:  
+*""As a <type of user>, I want <some goal> so that <some reason>.""*  
+
+Large, complex user stories are referred to as **epic stories**, which cannot be completed in a single iteration. Epic stories are broken down into smaller user stories that can be implemented within single iterations. Examples include:  
+- **Epic Story**: ""As a user, I can back up my entire hard drive.""  
+- **User Stories**:  
+  - ""As a user, I can specify files or folders to back up based on file size, date created, and date modified.""  
+  - ""As a user, I can indicate folders not to back up so that my backup drive isn't filled with unnecessary files.""",As user stories.,1,1,1
+"In the ECS cluster figure, which external source pushes images to ECR?",The retrieved segments do not contain any information about an ECS cluster figure or an external source pushing images to ECR.,GitHub pushes to ECR.,0,0,0
+"In the ECS cluster diagram, which AWS service triggers the worker service?",The retrieved segments do not contain any information about an ECS cluster diagram or AWS services.,AWS Lambda triggers the worker service.,0,0,0
+"In the ECS cluster box, what label appears above the ovals that represent use cases inside a system boundary?","""Telephone Catalog""",System boundary.,0,0,0
+"On the slide that begins ÒDOMAIN ANALYSIS,Ó what does ÒdomainÓ refer to?","""Domain"" refers to the general field in which the customer expects to use the software.",The general field in which the customer expects to use the software.,1,1,1
+"On the ÒDOMAIN ANALYSISÓ slide, name one listed artifact to include in the document besides the glossary.",**General knowledge**,"Environment, domain model, tasks/procedures, competing software (any one).",0,0,0
+"On the ÒDOMAIN MODELÓ slide, what does domain modeling generally decompose?",Domain modeling generally decomposes a domain into its individual entities.,The domain into individual entities and their responsibilities/relationships.,1,1,1
+"In the four-class UML example, what is the generalization relationship shown between two left-side classes?","The generalization relationship in the four-class UML example is shown between the ""University"" class and the ""EducationalInstitution"" class. The ""University"" class is a subclass of the ""EducationalInstitution"" class, as indicated by the solid line with a hollow triangular arrowhead pointing from ""University"" to ""EducationalInstitution"".",University is a subclass (generalization) of EducationalInstitution.,1,1,1
+"In the same UML example, what multiplicity sits at the Student end of the EducationalInstitutionÐStudent association?",1..*,1..* at the Student end.,1,1,1
+"In the banking card UML, which two subclasses specialize FinancialCard?",DebitCard and CreditCard specialize FinancialCard.,DebitCard and CreditCard.,1,1,1
+"In that same diagram, what multiplicity is shown at the BankAccount end of the FinancialCardÐBankAccount association?",The multiplicity shown at the BankAccount end of the FinancialCard–BankAccount association is **1..2**.,1..2 at the BankAccount end.,1,1,1
+"In the hospital Òclass OrganizationÓ diagram, which two top-level specializations derive from Person?","""Patient"" and ""Staff"".",Patient and Staff.,1,1,1
+"In that hospital model, which relation (aggregation/composition) connects Hospital to Department?",Composition.,Aggregation/composition (a diamond) from Hospital to Department.,1,0,0
+"In the ER model, what geometric shape represents relationships such as ÒHasÓ and ÒPerforms TransactionÓ?",Diamond.,Diamonds.,1,1,1
+"In the ER model, which relationship connects User and ATM?","The relationship connecting ""User"" and ""ATM"" in the ER model is **""Performs Transaction""**.",ÒPerforms Transaction.Ó,1,1,1
+"In the ER model, what attribute is attached to the AccountÐUser ÒHasÓ relationship?","The attribute attached to the Account–User ""Has"" relationship in the ER model is **""Date""**.",Date.,1,1,1
+"In the use case anatomy graphic, what is the name of the rectangular container that encloses use cases?",The name of the rectangular container that encloses use cases is the **system boundary**.,System boundary (a labeled rectangle).,1,1,1
+"In that use case example, what role label is given to the stick figure on the right?","""Salesperson""",Salesperson.,1,1,1
+"In the ÒTelephone CatalogÓ use case diagram, list one use case inside the system boundary.","""check status""","Check status (or place order, or fill orders, or establish credit).",1,1,1
+"In the ÒUSE CASE RELATIONSHIPSÓ include example, which repeated sub-function is included by both Deposit Funds and Withdraw Cash?","""Customer Authentication"" is the repeated sub-function included by both ""Deposit Funds"" and ""Withdraw Cash"" in the ""USE CASE RELATIONSHIPS"" include example.",Customer Authentication.,1,1,1
+"In the extend example, which use case extends Book Flight?",Upgrade Seat,Upgrade Seat.,1,1,1
+"In the use case generalization trio, what sits as the parent above Check Password and Fingerprint Scan?","""Verify Identity"" sits as the parent above ""Check Password"" and ""Fingerprint Scan"" in the use case generalization trio.",Verify Identity.,1,1,1
+"In the ÒSales Order SystemÓ diagram, which use case is marked as the base use case?","""Place Order"" is marked as the base use case in the ""Sales Order System"" diagram.",Place Order.,1,1,1
+"In that same diagram, which three use cases does Place Order include?","""Place Order"" includes the following three use cases:
+1. **Supply Customer Data**
+2. **Order Product**
+3. **Arrange Payment**","Supply Customer Data, Order Product, Arrange Payment.",1,1,1
+"In the ÒSales Order SystemÓ diagram, which two child use cases specialize Arrange Payment?","""Pay Cash"" and ""Arrange Credit"" are the two child use cases that specialize ""Arrange Payment.""",Pay Cash and Arrange Credit.,1,1,1
+"In the ATM use case diagram, which single use case is included by Withdraw Funds, Query Account, and Transfer Funds?",Validate PIN,Validate PIN.,1,1,1
+"In ÒValidate PIN (2)Ó, what does the system check after the customer enters a PIN and the card is valid?",The system checks whether the entered PIN matches the PIN stored in the system.,It checks whether the entered PIN matches the stored card PIN.,1,1,1
+"In ÒValidate PIN (3)Ó, what happens if the card is not recognized?","If the card is not recognized, the system ejects the card.",The system ejects the card.,1,1,1
+"In ÒValidate PIN (3)Ó, what happens after three incorrect PIN attempts?",The system confiscates the card.,The system confiscates the card.,1,1,1
+"In ÒWithdraw Funds (2)Ó, what does the system do immediately after authorizing dispensing of cash?",The system dispenses the requested cash amount.,Dispenses cash (then prints receipt).,1,1,1
+"In ÒWithdraw Funds (3)Ó, what happens if the ATM is out of funds?","If the ATM is out of funds in ""Withdraw Funds (3)"", the system displays an apology, ejects the card, and shuts down the ATM.","The system apologizes, ejects the card, and shuts down.",1,1,1
+"During 0Ð1s, what large label identifies the right-hand grouped box in the infrastructure sketch?",None.,ECS cluster.,0,0,0
+"During 14Ð22s, what section title is shown in red text?","""DOMAIN ANALYSIS AND REQUIREMENTS MODELING""",SECTION 2 Ñ Domain Analysis and Requirements Modeling.,1,1,1
+"At 347Ð499s, which course code appears on the ÒDOMAIN ANALYSISÓ slide?",SEG2106,SEG2106.,1,1,1
+"At 850Ð1345s, which association name links EducationalInstitution to Student?","""enrolledAt""",enrolledAt.,1,1,1
+"At 1372Ð1505s, what class sits directly above both DebitCard and CreditCard?","""FinancialCard"" sits directly above both ""DebitCard"" and ""CreditCard.""",FinancialCard.,1,1,1
+"At 1707Ð1787s, which right-hand class aggregates or composes Departments?",The retrieved segments do not provide explicit information about a right-hand class that aggregates or composes Departments within the specified time range of 1707-1787 seconds.,Hospital.,0,0,0
+"At 1788Ð1789s, name one relationship diamond visible between core entities.","""Has""",Has (between Account and User) or Performs Transaction (between User and ATM).,1,1,1
+"At 2576Ð2579s, what definition is given for an actor in the use case view?",An actor in the use case view is defined as a party outside the system that interacts with it. An actor can be a class of users or other systems.,A party outside the system (user or external system) that interacts with it.,1,1,1
+"At 3056Ð3081s, what relationship type is illustrated with a parent use case and two children implying an either/or execution?",Generalization relationship.,Generalization (use case specialization).,1,1,1
+"At 3770Ð3801s, list two non-functional attributes named on the slide.",**Security** and **Scalability**,"Any two of: security, reliability, maintainability, scalability, usability.",1,1,1
+"According to the ÒValidate PINÓ main sequence (23Ð24 of 34), what is step 1?","Step 1 in the ""Validate PIN"" main sequence is: **Customer inserts the ATM card into the card reader.**",Customer inserts the ATM card into the card reader.,1,1,1
+"According to the same main sequence, what does the system do in step 2 if the card is recognized?",The system reads the card number.,It reads the card number.,1,1,1
+"In the ÒValidate PINÓ main sequence, what does the system do after PIN numbers match?","If the PIN numbers match, the system determines which accounts are accessible with the ATM card and then displays the customer’s accounts, prompting the customer to select a transaction type (withdrawal, query, or transfer).",The system checks what accounts are accessible with the ATM card.,1,1,1
+"In the ÒValidate PINÓ alternative sequence, what happens if the card date has expired?","If the card date has expired, the system confiscates the card.",The system confiscates the card.,1,1,1
+"In the ÒValidate PINÓ alternative sequence, what happens if the customer presses Cancel between steps 4Ð8?","If the customer presses Cancel between steps 4–8 in the ""Validate PIN"" alternative sequence, the system cancels the transaction and ejects the card.",The system cancels the transaction and ejects the card.,1,1,1
+"In the ÒWithdraw FundsÓ main sequence, what is checked in step 3 before authorizing cash?","In step 3 of the ""Withdraw Funds"" main sequence, the system checks if the customer has sufficient funds and ensures that the daily withdrawal limit is not exceeded.",Sufficient funds and daily limit not exceeded.,1,1,1
+"In the ÒWithdraw FundsÓ main sequence, what is printed in step 6 besides the transaction number?","In step 6 of the ""Withdraw Funds"" main sequence, the system prints a receipt showing the transaction details, which include the **transaction number**, **type**, **amount withdrawn**, and **account balance**.","Transaction type, amount withdrawn, and account balance (any of these details beyond number).",1,1,1
+"In the ÒWithdraw FundsÓ alternative sequence, what happens if the daily withdrawal limit is exceeded?","If the daily withdrawal limit is exceeded, the system displays an apology and ejects the card.",The system apologizes and ejects the card.,1,1,1
+"In the ÒWithdraw FundsÓ alternative sequence, what happens if the account number is invalid?","If the account number is invalid in the ""Withdraw Funds"" alternative sequence, the system displays an error message and ejects the card.",The system displays an error and ejects the card.,1,1,1
+"In the ÒWithdraw FundsÓ alternative sequence, what three-part action happens if the ATM is out of funds?","The three-part action that happens if the ATM is out of funds in the ""Withdraw Funds"" alternative sequence is:
+
+1. The system displays an apology.
+2. The system ejects the card.
+3. The system shuts down the ATM.","The system apologizes, ejects the card, and shuts down.",1,1,1
+Summarize the purpose of domain analysis in one sentence.,"The purpose of domain analysis is to understand the problem domain, its terminology, concepts, and requirements independently of the specific system being developed, enabling effective communication with stakeholders and anticipating future system extensions.","To determine the domainÕs concepts, stakeholders, constraints, and language so feasibility and scope can be judged.",1,1,1
+Summarize how domain models and behavioral models relate in this lecture.,"Domain models and behavioral models are interconnected in this lecture. Domain models focus on identifying and structuring entities, their attributes, and relationships within a problem domain, providing a static view of the system. Behavioral models, on the other hand, describe how these relationships and entities evolve over time, offering a dynamic perspective. The lecture emphasizes that understanding domain models is foundational for creating behavioral models, as the static relationships captured in domain models inform the behaviors and interactions modeled dynamically.",Domain models define structure; behavioral models show how those relationships change over time (how the system behaves).,1,1,1
+State why multiplicities on associations are important in domain models.,"Multiplicity in domain models is important because it specifies the number of instances of one entity that can be associated with a single instance of another entity. It provides clarity on the cardinality of relationships, helping to define how entities participate in relationships. For example, it tells us how many entities are related on each side of a relationship (e.g., one-to-many, many-to-many). This information is crucial for understanding the structure of the domain, ensuring accurate representation of real-world constraints, and aiding in database design and system implementation.",They constrain the number of participating entities and clarify cardinality for correctness.,1,1,1
+"Explain the difference between association, aggregation, and composition as presented.","Association, aggregation, and composition are types of relationships between entities in domain modeling, as described in the retrieved segments:
+
+1. **Association**:
+   - Represents a general relationship between two entities where they interact or are connected in some way.
+   - It is the most basic type of relationship and does not imply ownership or dependency.
+   - Example: ""Association is basically say two things in terms of the employee class"" (audio 1004.54-1009.54s).
+
+2. **Aggregation**:
+   - Represents a ""whole-part"" relationship where one entity (the whole) is made up of other entities (the parts), but the parts can exist independently of the whole.
+   - It is a weaker form of ownership compared to composition.
+   - Example: ""For aggregation, the multiplicity of this side of the diamond is usually implicitly one because it's just there's one whole"" (audio 1553.54-1559.54s).
+   - ""And we are using aggregation"" (audio 1718.54-1719.54s).
+
+3. **Composition**:
+   - Represents a stronger ""whole-part"" relationship where the parts are entirely dependent on the whole and cannot exist independently.
+   - If the whole is destroyed, the parts are also destroyed.
+   - Example: ""Composition associates that the lifetime of the part is dependent on the life"" (audio 1117.54-1125.54s).
+   - ""Composition imposes a stronger semantic"" (audio 1113.54-1117.54s).
+   - ""This one with the bold diamond is composition"" (audio 1086.54-1091.54s).
+
+In summary:
+- **Association** is a general connection.
+- **Aggregation** is a ""whole-part"" relationship where parts can exist independently.
+- **Composition** is a ""whole-part"" relationship where parts cannot exist independently.",Association = generic link; aggregation = whole-part (looser); composition = whole-part with strong lifetime dependency.,1,1,1
+"In one sentence, explain the role of include versus extend between use cases.","Include represents mandatory shared functionality reused across multiple use cases, while extend models optional, conditional behavior that augments a base use case.",Include extracts mandatory shared behavior; extend conditionally adds optional behavior to a base use case.,1,1,1
+Give the template for user stories used in agile per the lecture.,"""As a <type of user>, I want <some goal> so that <some reason>.""","As a <type of user>, I want <some goal> so that <some reason>.",1,1,1
+Describe what an epic story is and how it is handled.,"An **epic story** is a user story that covers a large amount of functionality and cannot be completed in a single iteration. It is broken down into smaller, more manageable user stories that can be implemented within a single iteration.
+
+### Characteristics of an Epic Story:
+1. It represents a high-level requirement or goal.
+2. It spans multiple iterations, making it too large to be completed in one iteration.
+3. It is decomposed into smaller user stories for implementation.
+
+### Example:
+- **Epic Story**: ""As a user, I can back up my entire hard drive.""
+- **Decomposed User Stories**:
+  1. ""As a user, I can specify files or folders to back up based on file size, date created, and date modified.""
+  2. ""As a user, I can indicate folders not to back up so that my backup drive isn’t filled with unnecessary files.""
+
+### Handling Epic Stories:
+1. **Decomposition**: Break down the epic story into smaller user stories that are achievable within a single iteration.
+2. **Prioritization**: Determine which smaller user stories should be implemented first based on their importance and dependencies.
+3. **Implementation**: Work on the smaller user stories iteratively until the entire epic story is completed.","A large, high-level story that spans more than one iteration and must be decomposed into smaller user stories.",1,1,1
+Provide two examples of non-functional requirements mentioned.,"1. **Security requirement**: The system must encrypt ATM card numbers and PINs.  
+2. **Performance requirement**: The system must respond to actor inputs within 5 seconds.","Security (e.g., encrypt card numbers and PINs), performance (respond within 5 seconds), reliability, scalability, usability.",1,1,1
+State the main purpose of a Software Requirements Specification in this lecture.,"The main purpose of a Software Requirements Specification (SRS) in this lecture is to combine functional and non-functional requirements into a single specification document, integrate domain analysis outputs, establish a basis for agreement between developers and customers, ensure stakeholder sign-off before proceeding with development, and provide a foundation for estimating product costs, risks, and schedules.",To integrate functional and non-functional requirements (plus domain analysis) into a signed-off contract and basis for estimates.,1,1,1
+"According to the estimation precision slide, why are early cost/schedule estimates highly uncertain?","Early cost/schedule estimates are highly uncertain because, as indicated on the estimation precision slide, these models include a lot of uncertainty and imprecision. This is due to the early stages of development where limited information is available, leading to a wide range of potential errors in estimation. The slide's graph visually demonstrates this by showing high uncertainty at the feasibility stage, which decreases as the project progresses and more detailed information becomes available.","Because at feasibility/requirements stages estimation error can be off by up to ~4x, improving only as the project advances.",1,1,1

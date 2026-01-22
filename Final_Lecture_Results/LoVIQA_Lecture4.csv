@@ -1,0 +1,92 @@
+question,prediction,ground_truth,Expert_Annotation1,Expert_Annotation2,Final_Decision
+Which other modeling notation besides activity diagrams does the lecturer say is used to specify system behavior,Class diagrams.,State machines,0,0,0
+What are the two broad categories of UML diagrams mentioned in the lecture,Structural Models and Behavioral Models.,Structural and behavioral,1,1,1
+In structural models what do we mainly capture according to the lecture,"In structural models, we mainly capture the static architecture of a system, including the ""things"" that make up a system such as classes, objects, interfaces, and physical components. Additionally, structural models are used to represent the relationships and dependencies between these elements.",Static entities and their relationships,1,1,1
+What key aspects do behavioral models focus on according to the lecture,"Behavioral models focus on the following key aspects according to the lecture:
+
+1. **Temporal Relationships**: Behavioral models emphasize the notion of time and temporal relationships between events and actions, capturing how behavior unfolds over time.
+2. **Event Modeling**: Events act as triggers for actions or reactions within the system, and behavioral models detail how these events are modeled and handled.
+3. **Communication and Concurrency**: Behavioral models address how communication occurs between components and how concurrency is managed within the system.
+4. **Action and Reaction**: Behavioral models capture the steps or actions triggered by events and the corresponding reactions of the system.
+5. **Order of Events**: Behavioral models aim to capture the sequence and order of events through abstraction and modeling.",Behavior and concurrency over time,1,1,1
+Which kind of communication is described as reliable but makes the sender wait synchronous or asynchronous,Synchronous,Synchronous communication,1,1,1
+Which kind of communication continues without waiting synchronous or asynchronous,asynchronous,Asynchronous communication,1,1,1
+What object is produced and then used when sending an invoice in the example flow,"The object produced and then used when sending an invoice in the example flow is **""Invoice""**.",Invoice used by Make Payment,1,1,1
+After shipping the order which two activities proceed in parallel in the order process example,"""Pay bill"" and ""Close order"" proceed in parallel after shipping the order in the order process example.",Receive order and Bill customer,0,0,0
+What does a join bar require before its single outflow can execute,A join bar requires all inflows to be received before its single outflow can execute.,All inflows must arrive,1,1,1
+What does a flow final node terminate according to the slides,A flow final node terminates a single flow.,A single flow,1,1,1
+On the REVIEW OF UML RELATIONSHIPS slide which symbol denotes composition,"The symbol that denotes composition on the ""REVIEW OF UML RELATIONSHIPS"" slide is a **solid line with a filled (black) diamond marker**.",Filled black diamond,1,1,1
+On the REVIEW OF UML RELATIONSHIPS slide which symbol denotes aggregation,"The symbol that denotes aggregation on the ""REVIEW OF UML RELATIONSHIPS"" slide is a solid line with an open (hollow) diamond marker at one end.",Hollow diamond,1,1,1
+On the REVIEW OF UML RELATIONSHIPS slide which symbol denotes generalization or inheritance,A hollow triangular arrowhead denotes generalization or inheritance on the REVIEW OF UML RELATIONSHIPS slide.,Hollow triangle arrowhead,1,1,1
+On the REVIEW OF UML RELATIONSHIPS slide which symbol denotes realization of an interface,Dashed line with a hollow triangular arrowhead pointing to the interface.,Dashed line with hollow triangle arrowhead,1,1,1
+On the REVIEW OF UML RELATIONSHIPS slide what multiplicity is shown near Engine in the BoatÐEngine example,"""0..1""",0..1,1,1,1
+On the REVIEW OF UML RELATIONSHIPS slide what multiplicity is shown between Library and Books,"""1..*""",1..*,1,1,1
+On the EVENTS IN UML slide name the two classifications that separate event sources,External events and internal events.,External and internal,1,1,1
+On the EVENTS IN UML slide list the two message based kinds of events,**Signals** and **Calls**.,Signals and calls,1,1,1
+In the order processing activity diagram what guarded label routes from the first decision to Fill Order,[order accepted],order accepted,1,1,1
+In the order processing activity diagram what guarded label skips to the merge on the right,[order rejected],order rejected,1,1,1
+In the order processing activity diagram name one action on the upper branch after the fork,"""Send Invoice""",Send Invoice,1,1,1
+In the order processing activity diagram name the data object passed from Send Invoice to Accept Payment,Invoice,Invoice,1,1,1
+In the Online Shopping mini example what shape represents the initial node,The initial node in the Online Shopping mini example is represented by a solid black circle.,Filled black circle,1,1,1
+In the Online Shopping mini example what shape represents the final node,"The final node in the Online Shopping mini example is represented as a bullseye, which is a black filled circle with an outer ring.",Bullseye with outer ring,1,1,1
+In the Authenticate User example where are activity parameters displayed relative to the activity frame,Activity parameters are displayed on the border of the activity frame and listed below the activity name inside the activity frame.,On the border and listed below the name,1,1,1
+In the Authenticate User example give one parameter name shown on the border,Login Id,Login Id,1,1,1
+In the decision and merge example what notation shape do both nodes share,Diamond shape.,Diamond,1,1,1
+In the fork and join example what two labels are hand written under the bars,"The two handwritten labels under the bars in the fork and join example are ""fork"" (under the left bar) and ""join"" (under the right bar).",fork and join,1,1,1
+In the conditional thread example what guard enables the rightmost branch,The retrieved segments do not provide explicit information about the guard enabling the rightmost branch in the conditional thread example.,frequent flyer member,0,0,0
+In the events slide what term is used for an object sent asynchronously between objects,Signals,Signal,1,1,1
+When time passes what is the UML term for that kind of event,Passage of time.,Passage of time,1,1,1
+At 175Ð176s what main slide topic is shown,Domain and software process modeling using Activity Diagrams.,Software Modeling,1,1,1
+At 335Ð336s what red title appears above the gallery of relationships,"""REVIEW OF UML RELATIONSHIPS""",REVIEW OF UML RELATIONSHIPS,1,1,1
+At 544Ð547s what red title introduces signals and calls,"""EVENTS IN UML""",EVENTS IN UML,1,1,1
+At 1153Ð1233s what is the big slide header defining the diagram type being discussed,UML Activity Diagrams,UML Activity Diagrams,1,1,1
+At 1233Ð1246s what is the label inside the rounded activity boundary of the example diagram,"""Process Order""",Process Order,1,1,1
+At 1533Ð1877s which call action name is shown in the left flow before the final node,"""Confirm Order""",Confirm Order,1,1,1
+At 2388Ð2516s what is the slide title explaining parallelization bars,"""FORK AND JOIN NODES""",FORK AND JOIN NODES,1,1,1
+At 2667Ð2742s which type of final node stops all flows in the activity,Activity Final Node,Activity final node,1,1,1
+At 2998Ð3016s what is the title inside the activity frame showing the ticket workflow,"""Resolve Issue""",Resolve Issue,1,1,1
+At 3019Ð3135s what red title appears next to the two hand drawn labels step and activity,"""PARTITION""",ACTIVITY,0,0,0
+At 3136Ð3199s how many swimlanes are shown in the object flow partition example,"Three swimlanes are shown: ""Customer,"" ""Sales,"" and ""Warehouse.""",Three,1,1,1
+At 3199Ð3326s what role name labels the rightmost swimlane,"""Warehouse""",Warehouse,1,1,1
+At 3536Ð3555s what state does the bill object have after payment,The bill object has the state **[paid]** after payment.,paid,1,1,1
+At 3794Ð3796s what slide topic introduces a dashed region around actions,"""INTERRUPTIBLE ACTIVITY REGION""",INTERRUPTIBLE ACTIVITY REGION,1,1,1
+At 3902Ð3909s which two interrupts can break the Enter Pin step in the ATM example,"The two interrupts that can break the Enter Pin step in the ATM example are:
+
+1. **Cancel Button**  
+2. **45 sec timeout**",Cancel Button and 45sec timeout,1,1,1
+What does an activity final node do,An activity final node stops all flows in an activity.,Stops all flows in the activity,1,1,1
+What does a flow final node do,A flow final node terminates a single flow in a UML activity diagram. It does not stop the entire activity but ends the specific flow reaching it.,Terminates a single flow,1,1,1
+What do fork and join bars indicate in an activity diagram,"Fork and join bars in an activity diagram indicate the start and end of concurrent threads of control. A fork bar splits control into multiple concurrent actions, while a join bar synchronizes multiple inflows into a single outflow. The outflow from a join cannot execute until all inflows have been received.",Start and synchronization of concurrent threads,1,1,1
+What does a merge node do after mutually exclusive branches,A merge node recombines mutually exclusive branches into a single flow after one of the branches completes.,Recombines mutually exclusive branches,1,1,1
+What UML symbol denotes the start of control flow,A filled black circle (solid ellipse) denotes the start of control flow in UML activity diagrams.,Filled black circle,1,1,1
+What UML symbol denotes the end of control flow for the whole activity,"A UML symbol that denotes the end of control flow for the whole activity is the **Activity Final Node**, represented as a bullseye (a black filled circle inside a thin outer ring).",Bullseye double circle,1,1,1
+What shape is used for decision and merge nodes,Diamond shape.,Diamond,1,1,1
+What shape is used for actions,Actions are represented as rounded rectangles.,Rounded rectangle,1,1,1
+In an activity diagram what encloses parameters and actions for a named activity,A round-cornered rectangle encloses parameters and actions for a named activity.,A rounded rectangle labeled with the activity name,1,1,1
+In the Authenticate User example which two inputs feed the first action,"""Login Id"" and ""Password"".",Login Id and Password,1,1,1
+In the order process who receives the filled order before paying the bill,The **Customer** receives the filled order before paying the bill.,Customer,1,1,1
+In the order process which action generates the unpaid bill,"The action ""Bill customer"" generates the unpaid bill.",Bill customer,1,1,1
+In the order process which action updates the bill to paid,"The action ""Pay bill"" updates the bill to ""paid"".",Pay bill,1,1,1
+In the order process which two flows must converge before Close Order,"The two flows that must converge before ""Close Order"" are:
+
+1. The flow from ""Ship Order.""
+2. The flow from ""Pay Bill.""",Receive order and Bill paid,1,1,1
+In the customerÐstore signal example which lane receives the Order signal,The **Online Book Store** lane receives the Order signal.,Online Book Store,1,1,1
+In the customerÐstore signal example what periodic trigger icon fires Every hour,"The periodic trigger icon labeled ""Every hour"" is represented by an hourglass symbol.",Hourglass,1,1,1
+In the ATM example what happens if the user presses the cancel button while entering the PIN,"If the user presses the cancel button while entering the PIN, the flow is interrupted and redirected to the ""Confirm Cancel"" action.",Confirm Cancel,1,1,1
+In the ATM example what happens if 45 seconds elapse while entering the PIN,"If 45 seconds elapse while entering the PIN, the flow is interrupted, and the system displays the message ""Timeout Elapsed.""",Display Timeout Elapsed,1,1,1
+What is the key difference between synchronous and asynchronous communication in the lecture,"Synchronous communication requires the sender and receiver to be actively engaged in the communication at the same time, ensuring immediate acknowledgment and reliability. In contrast, asynchronous communication allows the sender to continue without waiting for the receiver's acknowledgment, enabling greater efficiency and parallelism but with less reliability.",Synchronous waits for a response while asynchronous does not,1,1,1
+What are the two main things the lecturer says we care most about for behavior and concurrency,Behavior and concurrency.,Capturing behavior and concurrency,1,1,1
+What do structural models describe about things according to the lecture,"Structural models describe the static architecture of a system, modeling the ""things"" that make up a system, such as classes, objects, interfaces, and physical components. They also model the relationships and dependencies between these elements.",Static structure of things and how they are related,1,1,1
+What must be true before the outflow of a join can proceed,"Before the outflow of a join can proceed, all incoming flows to the join must be completed.",All incoming branches must complete,1,1,1
+Which four kinds of events are listed on the EVENTS IN UML slide,"1. Signals: Object sent asynchronously by one object and received by another.  
+2. Calls: Method calls between objects, typically synchronous.  
+3. Passage of time.  
+4. Change in state.",Signals calls passage of time change in state,1,1,1
+Which two categories classify events as external or internal on the EVENTS IN UML slide,"- **External events**: Interactions between the system and its actors, such as pressing a button on a graphical user interface (GUI).
+- **Internal events**: Events occurring within the system, such as input/output (IO) exceptions.",External events and internal events,1,1,1
+What is the purpose of a partition or swimlane in an activity diagram,"The purpose of a partition or swimlane in an activity diagram is to group actions or activities based on a shared characteristic, such as responsibility, role, or department, to clarify who performs each action or which system component is responsible for specific tasks.",To group actions by actor or responsibility,1,1,1
+How are object states shown next to an object name in an object node,"Object states are shown next to an object name in an object node by placing the state in square brackets below the object's name. For example, in the object node labeled ""Order [in progress],"" ""Order"" is the object name, and ""[in progress]"" is the state.",In square brackets after the object name,1,1,1
+Which slide advises to add object flows when a workflow triggers significant object behavior,"Slide titled **""HOW TO CONSTRUCT ACTIVITY DIAGRAMS""** (timestamps: 4024s-4025s, 4025s-4029s, 4029s-4030s, 4030s-4031s).",HOW TO CONSTRUCT ACTIVITY DIAGRAMS,1,1,1
+Which step comes immediately after Receive Order in the order process upper branch,Fill Order,Check PIN,0,0,0
+Which two activities run in parallel after Fill Order in the order process,"""Send Invoice"" and ""Ship Order"" run in parallel after ""Fill Order"" in the order process.",Send Invoice and Ship Order,1,1,1

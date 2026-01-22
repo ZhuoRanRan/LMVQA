@@ -1,0 +1,84 @@
+question,prediction,ground_truth,Expert_Annotation1,Expert_Annotation2,Final_Decision
+What topic does the lecturer say they will focus on today regarding behavioral models?,"Today, the lecturer says they will focus on continuing the discussion on behavioral models.",UML state machines,0,0,0
+"According to the lecture, what three elements can a state-machine transition have?","Trigger, Guard, Effect",trigger guard effect,1,1,1
+"In the heaterÐroom example, which two room temperature thresholds are mentioned as guards?",18 and 22.,18 and 22 degrees,1,1,1
+What does the lecturer call a transition with no trigger that fires when a stateÕs behavior completes?,A **completion transition**.,completion transition,1,1,1
+"When discussing compound states, which event is said to take priority over inner sub-state events?","When discussing compound states, the event that takes priority over inner sub-state events is the transition event that moves the system out of the compound state.","the outer compound_state event (e.g., disconnect)",1,0,1
+"On the garage door state machine, which event label leads from Opening back to Open?","""reachTop""",reachTop,1,1,1
+"In the garage door diagram, what event can take Closing to Opening?","""buttonOrObstacle""",buttonOrObstacle,1,1,1
+"In the garage door diagram, which state lies directly below Opening?",HalfOpen,HalfOpen,1,1,1
+"In the ÒIn State MachinesÓ mini-diagram, what is the canonical transition label format shown over the arrow?",Trigger [Guard] / Effect,Trigger [Guard] / Effect,1,1,1
+"In the ÒSUBJECTSÓ slide sketch, which two agent boxes are drawn on the right side?",Agent1 and Agent2.,Agent1 and Agent2,1,1,1
+"On the ÒSTATESÓ slide fragment, which example state is shown receiving two incoming ÒbuttonOrObstacleÓ arrows?","""Opening""",HalfOpen,0,0,0
+"On the ÒCOMPLETION TRANSITIONSÓ diagram, which state has a self-transition labeled after 2 seconds?",Idle,Idle,1,1,1
+"In the same diagram, which event takes the system from Tracking to Engaging?","""contact""",contact,1,1,1
+"On the ÒCOMPOUND STATESÓ example, what event moves from Disconnected to Connected?",**connect**,connect,1,1,1
+"Inside the Connected compound state, which event moves Waiting to ProcessingByte?",**receiveByte**,receiveByte,1,1,1
+"In the ÒCOMPOUND STATES EXAMPLEÓ with Checking PIN, which guard leaves the compound to Searching Network?",**[pin OK]**,[pin OK],1,1,1
+"In that PIN example, which guard loops back from the decision to Entering PIN?",The guard that loops back from the decision to Entering PIN is **[pin invalid]**.,[pin invalid],1,1,1
+"In the ÒHISTORY STATESÓ washing machine, what is the order of the three substates inside Running?",Washing → Rinsing → Spinning,Washing Rinsing Spinning,1,1,1
+"In the same washing machine diagram, which symbol resumes the last active sub-state after power is restored?","""H"" (history pseudostate).",the history state H,1,1,1
+"In the alternative exit example, what is the name of the border exit that leads to Writing Error Report?",Failed to Read,Failed to Read,1,1,1
+What name appears as the speaker on the early black screen label?,Shiva Nejati,Shiva Nejati,1,1,1
+What section title is shown at 15Ð213s introducing the topic?,SECTION 4: UML STATE MACHINES,UML State Machines,1,1,1
+What two action labels appear in the activity-diagram example nodes?,"""Send Payment"" and ""Accept Payment""",Send Payment and Accept Payment,1,1,1
+"On the early star map, name one of the two bright stars labeled in Gemini.",The retrieved segments do not contain any information about an early star map or bright stars labeled in Gemini.,Castor or Pollux,0,0,0
+Which university logo is visible on many slides?,University of Ottawa,uOttawa,1,1,1
+What course code appears on the slides?,SEG2106,SEG2106,1,1,1
+"In the state-actions example state, what are the On Entry and On Exit actions listed for Receiving?","**On Entry / pickup**  
+**On Exit / disconnect**",On Entry pickup; On Exit disconnect,1,1,1
+What slide title is shown at 298Ð300s contrasting two diagram types?,"""ACTIVITY DIAGRAMS VS STATE MACHINES""",ACTIVITY DIAGRAMS VS STATE MACHINES,1,1,1
+"Between 540Ð541s, which three terms appear in the example transition label format?","Trigger, Guard, Effect",Trigger Guard Effect,1,1,1
+"At 1238Ð1239s, what timer text and effect are shown on the self-transition into Waiting?","""after 2 seconds / poll input""",after 2 seconds / poll input,1,1,1
+"Around 1411Ð1414s, which four states form the main flow on the completion-transition example?","Idle, Searching, Tracking, Engaging",Idle Searching Tracking Engaging,1,1,1
+"At 1612Ð1615s, what is the definition of a guard condition given on the slide?",A guard condition is described as a Boolean expression enclosed in square brackets and placed after the trigger event.,a Boolean expression in square brackets placed after the trigger,1,1,1
+"In one sentence, what is the key difference between activity diagrams and state machines emphasized in the lecture?","Activity diagrams focus on sequences of actions, while state machines emphasize sequences of states and the transitions driven by events, conditions, and effects.",activity diagrams show sequences of actions while state machines show sequences of states,1,1,1
+How are synchronous vs asynchronous communication modeled on transitions according to the lecture?,"Synchronous communication is modeled as an operation call, requiring synchronization between the communicating entities before the transition occurs. Asynchronous communication, on the other hand, is modeled as sending a message or signal, allowing the entities to operate independently without waiting for synchronization.",synchronous as operation calls; asynchronous as sending signals or messages,1,1,1
+"What is the purpose of a history state in a compound state, as explained with the washing machine?","The purpose of a history state in a compound state, as explained with the washing machine, is to enable the system to remember and resume the last active substate within the compound state after an interruption, such as a power cut. When power is restored, the history state allows the machine to return to the specific substate (e.g., Washing, Rinsing, or Spinning) that was active before the interruption, instead of restarting the sequence from the initial substate. This ensures continuity in the washing cycle without resetting the entire process.",to resume the last active sub-state on reentry instead of restarting from the initial sub-state,1,1,1
+What UML pseudostate is used to remember and resume the last active substate inside a composite state?,History pseudostate,The history pseudostate ÒHÓ.,1,1,1
+"In the washing-machine example, which two events move the system from ÒRunningÓ to ÒPowered OffÓ and back into ÒRunningÓ?","The two events are:
+1. **Power Cut**: Moves the system from ""Running"" to ""Powered Off"".
+2. **Restore Power**: Moves the system from ""Powered Off"" back into ""Running"".",Òpower cutÓ to leave Running; Òrestore powerÓ to re-enter via history.,1,1,1
+"In a compound state, what does a dashed horizontal line indicate?","A dashed horizontal line in a compound state indicates the presence of **concurrent regions**. These regions allow modeling a relationship of ""And"" between states, meaning the system can be in multiple states simultaneously within the compound state. Each region operates independently, and transitions within one region do not affect the states in the other regions.",Concurrent (orthogonal) regions inside the composite state.,1,1,1
+"In the ÒApplying BrakesÓ example, what are the names of the two concurrent regions?","""Applying Front Brakes"" and ""Applying Rear Brakes""",ÒApplying Front BrakesÓ and ÒApplying Rear BrakesÓ.,1,1,1
+"In the lectureÕs terminology, what is the key difference between an OR state and an AND state?","An OR state allows the system to be in one state at a time, while an AND state enables the system to be in multiple states simultaneously within concurrent regions.",OR = only one substate active (sequential); AND = multiple regions active concurrently (cross product of states).,1,1,1
+"When two regions each have states {A,B} and {C,D}, what four combined global states are possible under concurrency?","(A & C), (A & D), (B & C), (B & D)","(A&C), (A&D), (B&C), (B&D).",1,1,1
+"In the Maintenance example, which event from Idle forks into the two regions?","""maintain""",maintain.,1,1,1
+Which event from Idle goes directly to the final (termination) state?,"The event from Idle that goes directly to the final (termination) state is **""shutDown""**.",shutDown.,1,1,1
+"In the upper ÒTestingÓ region, which two states and completion events are shown?","The upper ""Testing"" region shows the states ""Testing devices"" and ""Self diagnosing."" The completion events associated with these states are ""testingCompleted"" (transition from ""Testing devices"" to ""Self diagnosing"") and ""diagnosisCompleted"" (transition from ""Self diagnosing"" to the right synchronization bar).",ÒTesting devicesÓ _(testingCompleted)_ ÒSelf diagnosingÓ _(diagnosisCompleted)_ join.,1,1,1
+"In the lower ÒCommandingÓ region, which guard causes a loop back to Waiting after Processing Command?","The guard causing a loop back to ""Waiting"" after ""Processing Command"" in the lower ""Commanding"" region is **""commandProcessed [not continue]""**.",commandProcessed [continue].,0,0,0
+"In that lower region, which guarded transition exits to the join bar?","The guarded transition that exits to the join bar in the lower region is labeled **""commandProcessed [not continue]""**.",commandProcessed [not continue].,1,1,1
+"In the CD player ÒOnÓ composite, what are the two display states in the top region?","""Displaying Current Time"" and ""Displaying Alarm Time"".",Displaying Current Time; Displaying Alarm Time.,1,1,1
+What timer duration appears on the transition back to ÒDisplaying Current TimeÓ?,3 seconds,3 seconds (ÒTimer (3 s)Ó).,1,1,1
+"In the bottom (audio) region of ÒOn,Ó what are the two playback states?","""Playing Radio"" and ""Playing CD"".",Playing Radio; Playing CD.,1,1,1
+"In the CD player example, the history pseudostate applies to which region?","The history pseudostate applies to the **lower region** (radio/CD playback) of the ""On"" composite state.",The lower audio region only.,1,1,1
+"In that example, what events toggle between Off and On at the outer level?","""On"" and ""Off"" events toggle between the ""Off"" and ""On"" states at the outer level.","On (off _ On), and Off (On _ off).",1,1,1
+"When re-entering ÒOnÓ from Off via history, what is the default target in the audio region?","""Playing Radio""",Playing Radio.,1,1,1
+"In the refined motor model, what guard functions appear to indicate functioning vs. not functioning?","**Guard functions indicating functioning vs. not functioning:**
+1. **[isFunctioning()]**: Indicates the system is functioning correctly.
+2. **[!isFunctioning()]**: Indicates the system is not functioning.",[isFunctioning()] and [!isFunctioning()].,1,1,1
+Name the five substates inside the motorÕs ÒRunningÓ composite.,"""Open,"" ""Closing,"" ""Closed,"" ""Opening,"" ""HalfOpen.""","Open, Closing, Closed, Opening, HalfOpen.",1,1,1
+Which event and guard move the motor from Open to Closing?,"The event and guard that move the motor from Open to Closing are:
+
+**Event:** `buttonPressed`  
+**Guard:** `[isFunctioning()]`",buttonPressed() [isFunctioning()].,1,1,1
+Which event moves the motor from Closing to Closed?,"""doorClosed()""",doorClosed().,1,1,1
+Which alternative triggers (with guard) move the motor from Closing to Opening?,"1. **buttonPressed(), obstacleDetected() [isFunctioning()]**  
+2. **buttonPressed() [isFunctioning()]**",buttonPressed() [isFunctioning()] or obstacleDetected() [isFunctioning()].,1,1,1
+Which event moves the motor from Opening back to Open?,"The event that moves the motor from ""Opening"" back to ""Open"" is **""doorOpen()""**.",doorOpen().,1,1,1
+Which state toggles with buttonPressed() between itself and Opening?,**HalfOpen** toggles with **Opening** on `buttonPressed()` according to the transitions described in the UML state machine diagrams.,HalfOpen.,1,1,1
+What external state represents the malfunction/repair mode?,"""WaitingForRepair"" represents the external state for the malfunction/repair mode.",WaitingForRepair.,1,1,1
+"What are the three transitions involving ÒWaitingForRepairÓ (enter, self-loop, return)?","1. **Enter ""WaitingForRepair""**: Transition from ""Running"" to ""WaitingForRepair"" occurs when the event `buttonPressed()` is triggered and the guard `[!isFunctioning()]` is satisfied.
+
+2. **Self-loop in ""WaitingForRepair""**: Transition within ""WaitingForRepair"" occurs when the event `timer()` is triggered and the guard `[!isFunctioning()]` is satisfied.
+
+3. **Return from ""WaitingForRepair""**: Transition from ""WaitingForRepair"" to ""Running"" occurs when the event `timer()` is triggered and the guard `[isFunctioning()]` is satisfied.",Enter: buttonPressed() [!isFunctioning()]; self-loop: timer() [!isFunctioning()]; return: timer() [isFunctioning()].,1,1,1
+What is the sensor unitÕs polling period?,20 milliseconds.,20 ms.,1,1,1
+Which three conditions does the sensor unit check every cycle?,#NAME?,"Obstacle detected, door open, door closed.",1,1,1
+"In the Garage Door use case diagram, which two use cases include ÒRun DiagnosisÓ?","""Open Door"" and ""Close Door"" include ""Run Diagnosis.""",Open Door and Close Door.,1,1,1
+"In the ÒRun DiagnosisÓ use case, what is the pre-condition?","The pre-condition for the ""Run Diagnosis"" use case is: **The user has pressed the remote or wall-mounted control button.**",User has pressed the remote or wall-mounted control button.,1,1,1
+"In that use case, what happens if a check fails?","[audio] 2045.0-2047.0s: And then if it's not, I don't go.",Wait 3 minutes and retry the checks.,0,0,0
+"In the ÒOpen DoorÓ use case, what happens if the door is currently opening?","If the door is currently opening, the system stops the door, leaving it half open.","Stop the door, leaving it half open.",1,1,1
+"In the ÒClose DoorÓ use case, what happens if the door is currently opening?","If the door is currently opening in the ""Close Door"" use case, the system stops the door, leaving it half-open.","Stop the door, leaving it half open.",1,1,1
+What modeling/tooling platform developed at uOttawa is introduced for model-oriented programming?,UMPLE is the modeling/tooling platform developed at the University of Ottawa for model-oriented programming.,Umple (UMPLE).,1,1,1
+Which MathWorks tool (and feature) is mentioned as equivalent in spirit to UML state machines?,MATLAB Simulink's **Stateflow** is mentioned as equivalent in spirit to UML state machines.,MATLAB Simulink with Stateflow.,1,1,1

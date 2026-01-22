@@ -23,6 +23,9 @@ from VideoQA_constants.prompts import (  # type: ignore
     GPT4_PROMPT_TEMPLATE,
     GPT5_DIAGRAM_PROMPT_TEMPLATE,
     DIAGRAM_ROUTER_CLASSIFY_PROMPT,
+    DIAGRAM_ROUTER_7WAY_CLASSIFY_PROMPT,
+    DIAGRAM_7WAY_CATEGORIES,
+    GPT5_DIAGRAM_PROMPT_TEMPLATES_BY_CATEGORY,
 )
 
 # ---------- Config (env-overridable, identical to feat) ----------
@@ -33,7 +36,8 @@ DIAGRAM_THRESHOLD = float(os.getenv("DIAGRAM_THRESHOLD", "0.65"))
 CAPTION_MAX_TOKENS = int(os.getenv("CAPTION_MAX_TOKENS", "1200"))  # for non-gpt-5
 ROUTER_LOG_NAME = os.getenv("ROUTER_LOG_NAME", "diagram_flags.jsonl")
 
-ALLOWED_TYPES = {"diagram", "flowchart"}  # same categories as feat
+# We treat many diagram-like visuals as "diagram" for routing purposes (not just flowcharts).
+ALLOWED_TYPES = {"diagram", "flowchart", "schematic", "chart", "table", "wireframe", "equation", "other"}
 
 # ---------- helpers ----------
 def _encode_image_to_b64(img: Image.Image, fmt: str = "PNG") -> str:
@@ -123,6 +127,59 @@ def _classify_diagram(client: OpenAI, image_b64: str) -> Dict[str, Any]:
     conf = max(0.0, min(1.0, conf))
 
     return {"is_diagram": (label == "DIAGRAM"), "confidence": conf, "types": types}
+
+# ---------- 7-way diagram category classifier ----------
+def _classify_diagram_category(client: OpenAI, image_b64: str) -> Dict[str, Any]:
+    """
+    Second-stage classifier (diagram-like already): classify into one of 7 categories.
+    Quiet on failure (defaults to OTHER).
+    Expected output format:
+      CATEGORY: <...>; CONF: <0.00-1.00>
+    """
+    messages = [
+        {"role": "system", "content": "Answer with ONE LINE only."},
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": DIAGRAM_ROUTER_7WAY_CLASSIFY_PROMPT},
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{image_b64}" }},
+            ],
+        },
+    ]
+
+    try:
+        resp = _chat_complete(
+            client,
+            model=LIGHTGPT_MODEL,
+            messages=messages,
+            token_budget=60,      # non-gpt-5 → max_tokens=60
+            temperature=0.0,      # deterministic
+        )
+        line = (resp.choices[0].message.content or "").strip().replace("\n", " ")
+    except Exception:
+        return {"category": "OTHER", "confidence": 0.0}
+
+    cat = "OTHER"
+    m_cat = re.search(
+        r"CATEGORY:\s*(UML_CLASS|UML_SEQUENCE|UML_STATE_ACTIVITY|UML_USE_CASE|NETWORK_TOPOLOGY|ARCH_WORKFLOW|OTHER)",
+        line,
+        re.I,
+    )
+    if m_cat:
+        cat = m_cat.group(1).upper()
+
+    conf = 0.0
+    m_conf = re.search(r"CONF:\s*([01](?:\.\d+)?)", line, re.I)
+    if m_conf:
+        try:
+            conf = float(m_conf.group(1))
+        except ValueError:
+            conf = 0.0
+    conf = max(0.0, min(1.0, conf))
+
+    if cat not in set(DIAGRAM_7WAY_CATEGORIES):
+        cat = "OTHER"
+    return {"category": cat, "confidence": conf}
 
 # ---------- GPT-5 via Responses API ----------
 def _responses_output_text(resp: Any) -> str:
@@ -268,10 +325,18 @@ def route_and_caption_image_path(
     is_diag = det.get("is_diagram", False) and det.get("confidence", 0.0) >= DIAGRAM_THRESHOLD and bool(types & ALLOWED_TYPES)
 
     if is_diag:
+        cat_det = _classify_diagram_category(client, image_b64)
+        diagram_category = cat_det.get("category", "OTHER")
+        category_conf = float(cat_det.get("confidence", 0.0) or 0.0)
+
         model = DIAGRAM_CAPTION_MODEL
-        prompt = GPT5_DIAGRAM_PROMPT_TEMPLATE.format(timestamp=timestamp_token)
+        template = GPT5_DIAGRAM_PROMPT_TEMPLATES_BY_CATEGORY.get(diagram_category) or GPT5_DIAGRAM_PROMPT_TEMPLATE
+        prompt = template.format(timestamp=timestamp_token)
         decision = "diagram"
     else:
+        diagram_category = None
+        category_conf = None
+
         model = NON_DIAGRAM_CAPTION_MODEL
         prompt = GPT4_PROMPT_TEMPLATE.format(timestamp=timestamp_token)
         decision = "normal"
@@ -294,6 +359,8 @@ def route_and_caption_image_path(
             "confidence": det.get("confidence", 0.0),
             "threshold": DIAGRAM_THRESHOLD,
             "types": list(types),
+            "diagram_category": diagram_category,
+            "diagram_category_conf": category_conf,
             "finish_reason": finish_reason,
         },
     }

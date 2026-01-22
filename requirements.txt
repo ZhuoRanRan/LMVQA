@@ -1,5 +1,4 @@
 google-adk>=0.1.0
-litellm>=1.65.7
 uvicorn>=0.34.0
 openai-agents>=0.0.13
 docling>=2.31.0

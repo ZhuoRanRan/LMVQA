@@ -42,7 +42,14 @@ def get_openai_client() -> OpenAI:
         load_dotenv(override=True)
     except Exception:
         pass
-    api_key = _get_required_env("OPENAI_API_KEY")
+    # We support GOOGLE_API_KEY as an alias because some environments standardize on it
+    # (while still calling an OpenAI-compatible endpoint via `openai` SDK).
+    api_key = os.getenv("OPENAI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+    if not api_key:
+        raise RuntimeError(
+            "Missing required API key. Set either OPENAI_API_KEY or GOOGLE_API_KEY "
+            "in your shell or in a local .env file."
+        )
     base_url = os.getenv("OPENAI_BASE_URL") or os.getenv("OPENAI_API_BASE") or None
 
     # ---- OpenAI-compatible / gateway support ----
