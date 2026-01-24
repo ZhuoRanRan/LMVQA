@@ -1,3 +1,14 @@
+## Pipeline Overview
+
+<p align="center">
+  <img src="Fig1.png" width="750" />
+</p>
+
+<p align="center">
+  <em>Figure: End-to-end workflow of our GPT-VideoQA-Chatbot pipeline.</em>
+</p>
+
+
 # GPT-VideoQA-Chatbot
 
 ## Project Overview
