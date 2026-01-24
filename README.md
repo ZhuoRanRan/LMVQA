@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <em>Figure: End-to-end workflow of our GPT-VideoQA-Chatbot pipeline.</em>
+  <em>Figure: End-to-end workflow of LoViQA pipeline.</em>
 </p>
 
 
