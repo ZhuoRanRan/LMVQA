@@ -9,10 +9,10 @@
 </p>
 
 
-# GPT-VideoQA-Chatbot
+# LoViQA
 
 ## Project Overview
-The GPTVideoQA module extends the Agentic AI Hub by adding a powerful video-based question answering (VideoQA) capability. It uses:
+The LoViQA pipeline extends the Agentic AI Hub by adding a powerful video-based question answering (VideoQA) capability. It uses:
 - **GPT-4o** for question answering and non-diagram frame captioning (model name is configurable)
 - **GPT-5** for diagram frame captioning with category-specific extraction prompts (configurable)
 - A **lightweight LLM** (default: **GPT-4o-mini**) as a 2-stage diagram router:
@@ -192,4 +192,4 @@ Lecture videos (Lecture1–Lecture5) can be downloaded from:
 
 - [Google Drive: Lecture videos (Lecture1–Lecture5)](https://drive.google.com/drive/folders/1fsx-LroU6rXkD5BLyaseC3SUoPrm9M8U?usp=drive_link)
 
-Place the downloaded `.mp4` files under `Decouple-GPTVideoQA-Chatbot/input_videos/` (or pass an absolute path via `--video`).
+Place the downloaded `.mp4` files under `LoViQA/input_videos/` (or pass an absolute path via `--video`).
