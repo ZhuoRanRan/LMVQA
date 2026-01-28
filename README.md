@@ -1,7 +1,7 @@
 ## Pipeline Overview
 
 <p align="center">
-  <img src="Fig1.png" width="750" />
+  <img src="assets/Fig1.png" width="750" />
 </p>
 
 <p align="center">
@@ -37,7 +37,7 @@ This project runs on Python 3.11.10 with the following key dependencies:
 
 ## 2. Configure API Key
 
-The pipeline uses the official `openai` Python SDK via `openai_client.py` and reads the API key from environment variables.
+The pipeline uses the official `openai` Python SDK via `scripts/openai_client.py` and reads the API key from environment variables.
 
 Create a local `.env` (or set env vars in your shell). We provide an example at `.env.example`.
 
@@ -63,37 +63,37 @@ This project uses **Milvus** for RAG retrieval. Set:
 
 ### To Test extract_frames
 ```sh
-python test_extractedframes.py
+python scripts/tests/test_extractedframes.py
 ```
 
 ### To Test Image-Description Model(GPT-4o)
 ```sh
-python test_generate_description.py
+python scripts/tests/test_generate_description.py
 ```
 
 ### To Test whisper
 ```sh
-python test_audio.py
+python scripts/tests/test_audio.py
 ```
 
 ### To Test align multimodal data
 ```sh
-python test_align_prompt.py
+python scripts/tests/test_align_prompt.py
 ```
 
 ### To Test RAG Component
 ```sh
-python test_RAG.py
+python scripts/tests/test_RAG.py
 ```
 
-All the testfiles are under the folder: ```test_files/```
+All the test files are under: `scripts/tests/`
 
 ## 4.Running VideoQA to Process Videos and Answer Questions
 
 ### Basic Command
 To start the VideoQA process, run:
 ```sh
-python main_gpt4o.py --video <video_path> --question "<your_question>"
+python scripts/main.py --video <video_path> --question "<your_question>"
 ```
 
 ### Optional Arguments
@@ -106,41 +106,45 @@ python main_gpt4o.py --video <video_path> --question "<your_question>"
 
 #### Using the Default Question (Describe the Video.)
 ```sh
-python main_gpt4o.py --video input_videos/example.mp4
+python scripts/main.py --video <video_path>
 ```
 #### Asking a Specific Question
 ```sh
-python main_gpt4o.py --video input_videos/example.mp4 --question "Tell me the main idea of the speaker."
+python scripts/main.py --video <video_path> --question "Tell me the main idea of the speaker."
 ```
 #### Asking a Complex Question (Increasing max_tokens)
 
 ```sh
-python main_gpt4o.py --video input_videos/example.mp4 --question "Summarize the entire video in detail." --max_tokens 1000
+python scripts/main.py --video <video_path> --question "Summarize the entire video in detail." --max_tokens 1000
 ```
 
 
 ### If you already have the Audio Descriptions and Frame Descriptions
 You can run the QA part without generating Audio Descriptions and Frame Descriptions again:
 ```sh
-python ask_video_main_gpt4o.py --video <video_path> --question "<your_question>"
+python scripts/ask_loviqa.py --video <video_path> --question "<your_question>"
 ```
 
 ---
 
 ## Directory Structure
-- ```main_gpt4o.py``` – full pipeline using GPT-4o (QA + non-diagram captioning) + GPT-5 (diagram captioning) + OpenAI-Whisper + Milvus RAG
+- `scripts/main.py` – full pipeline using GPT-4o (QA + non-diagram captioning) + GPT-5 (diagram captioning) + OpenAI-Whisper + Milvus RAG
 
-- ```ask_video_main_gpt4o.py``` – ask questions with precomputed transcripts/descriptions
+- `scripts/ask_loviqa.py` – ask questions with precomputed transcripts/descriptions
 
-- ```Audio_Transcriptions/``` – saved audio transcript JSONs
+- `assets/` – figures/images used in the README (e.g. `assets/Fig1.png`)
 
-- ```Frames/ – extracted``` frame images and descriptions
+- `dataset/` – dataset files (e.g. lecture CSVs). Videos can be stored here optionally (see “Data & Large Files”).
 
-- ```input_videos/``` Directory where raw MP4 videos are placed
+- `results/` – evaluation results and timing JSONs (e.g. `results/Run_time/`, `results/Process_time/`)
 
-- ```RAG_Pipeline``` Contains RAG logic using text-embedding-3-large-model and Milvus backend
+- `scripts/VideoQA_Pipeline/` – core pipeline scripts and orchestration logic for VideoQA
 
-- ```VideoQA_Pipeline``` Core pipeline scripts and orchestration logic for VideoQA task
+- `scripts/RAG_Pipeline/` – RAG logic (Milvus backend)
+
+- `scripts/VideoQA_constants/` – prompts/constants used by the pipeline
+
+- `scripts/tests/` – test scripts
 
 ## 🚀 Quickstart
 
@@ -153,15 +157,15 @@ python3.11 --version
 
 **macOS / Linux:**
 ```bash
-python3.11 -m venv agentic-ai-hub-env
+python3.11 -m venv loviqa-env
 
-source agentic-ai-hub-env/bin/activate
+source loviqa-env/bin/activate
 ```
 
 **Windows (PowerShell):**
 ```powershell
-python -m venv agentic-ai-hub-env
-.\agentic-ai-hub-env\Scripts\Activate.ps1
+python -m venv loviqa-env
+.\loviqa-env\Scripts\Activate.ps1
 ```
 
 3. **Install Requirements**
@@ -173,7 +177,7 @@ pip install -r requirements.txt
 
 4. **Using the Default Question (Describe the Video.)**
 ```sh
-python main_gpt4o.py --video input_videos/example.mp4
+python scripts/main.py --video <video_path>
 ```
 
 After running this command, you will generate local artifacts under `outputs/`, e.g.:
@@ -192,4 +196,5 @@ Lecture videos (Lecture1–Lecture5) can be downloaded from:
 
 - [Google Drive: Lecture videos (Lecture1–Lecture5)](https://drive.google.com/drive/folders/1fsx-LroU6rXkD5BLyaseC3SUoPrm9M8U?usp=drive_link)
 
-Place the downloaded `.mp4` files under `LoViQA/input_videos/` (or pass an absolute path via `--video`).
+Place the downloaded `.mp4` files anywhere locally, then pass an absolute (or relative) path via `--video`.
+Optionally, you can store them under `input_videos/` (e.g. `input_videos/Lecture1.mp4`) to keep things organized.

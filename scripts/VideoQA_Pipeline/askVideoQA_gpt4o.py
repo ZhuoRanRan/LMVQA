@@ -118,7 +118,7 @@ class AskVideoQAGPT4o:
             if not os.path.exists(chunk_path):
                 print(
                     f"❌ Still cannot find chunks at {chunk_path}. "
-                    f"If this is a fresh machine, run `main_gpt4o.py --video <path>` once to generate outputs and build Milvus, "
+                    f"If this is a fresh machine, run `python scripts/main.py --video <path>` once to generate outputs and build Milvus, "
                     f"or ensure you are connected to the same Milvus instance that already contains `videoqa_{video_name}`."
                 )
             else:
