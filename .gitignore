@@ -59,3 +59,5 @@ actionvideo_main.py
 /show_database.py
 /verify_openai_env.py
 /evaluation_pipeline/
+
+!assets/interviews.pdf

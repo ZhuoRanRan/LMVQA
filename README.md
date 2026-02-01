@@ -146,7 +146,8 @@ python scripts/ask_loviqa.py --video <video_path> --question "<your_question>"
 
 - `scripts/tests/` – test scripts
 
-- `assets/interviews.tex` – interview questionnaire + transcripts (paper appendix material)
+- `assets/interviews.tex` – interview questionnaire + transcripts (paper appendix material, LaTeX source)
+- `assets/interviews.pdf` – rendered interview questionnaire + transcripts (PDF)
 
 ## 🚀 Quickstart
 
