@@ -146,6 +146,8 @@ python scripts/ask_loviqa.py --video <video_path> --question "<your_question>"
 
 - `scripts/tests/` – test scripts
 
+- `assets/interviews.tex` – interview questionnaire + transcripts (paper appendix material)
+
 ## 🚀 Quickstart
 
 1. **Check Python Installation** (Python 3.11+ required)
