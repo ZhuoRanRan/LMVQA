@@ -5,14 +5,14 @@
 </p>
 
 <p align="center">
-  <em>Figure: End-to-end workflow of LoViQA pipeline.</em>
+  <em>Figure: End-to-end workflow of LMVQA pipeline.</em>
 </p>
 
 
-# LoViQA
+# LMVQA
 
 ## Project Overview
-The LoViQA pipeline extends the Agentic AI Hub by adding a powerful video-based question answering (VideoQA) capability. It uses:
+The LMVQA pipeline extends the Agentic AI Hub by adding a powerful video-based question answering (VideoQA) capability. It uses:
 - **GPT-4o** for question answering and non-diagram frame captioning (model name is configurable)
 - **GPT-5** for diagram frame captioning with category-specific extraction prompts (configurable)
 - A **lightweight LLM** (default: **GPT-4o-mini**) as a 2-stage diagram router:
@@ -122,7 +122,7 @@ python scripts/main.py --video <video_path> --question "Summarize the entire vid
 ### If you already have the Audio Descriptions and Frame Descriptions
 You can run the QA part without generating Audio Descriptions and Frame Descriptions again:
 ```sh
-python scripts/ask_loviqa.py --video <video_path> --question "<your_question>"
+python scripts/ask_lmvqa.py --video <video_path> --question "<your_question>"
 ```
 
 ---
@@ -130,7 +130,7 @@ python scripts/ask_loviqa.py --video <video_path> --question "<your_question>"
 ## Directory Structure
 - `scripts/main.py` – full pipeline using GPT-4o (QA + non-diagram captioning) + GPT-5 (diagram captioning) + OpenAI-Whisper + Milvus RAG
 
-- `scripts/ask_loviqa.py` – ask questions with precomputed transcripts/descriptions
+- `scripts/ask_lmvqa.py` – ask questions with precomputed transcripts/descriptions
 
 - `assets/` – figures/images used in the README (e.g. `assets/Fig1.png`)
 
@@ -160,15 +160,15 @@ python3.11 --version
 
 **macOS / Linux:**
 ```bash
-python3.11 -m venv loviqa-env
+python3.11 -m venv lmvqa-env
 
-source loviqa-env/bin/activate
+source lmvqa-env/bin/activate
 ```
 
 **Windows (PowerShell):**
 ```powershell
-python -m venv loviqa-env
-.\loviqa-env\Scripts\Activate.ps1
+python -m venv lmvqa-env
+.\lmvqa-env\Scripts\Activate.ps1
 ```
 
 3. **Install Requirements**
