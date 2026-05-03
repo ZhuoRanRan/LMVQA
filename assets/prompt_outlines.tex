@@ -1,0 +1,135 @@
+\section{Prompt Outlines}
+\label{appendix:prompt-outlines}
+
+This appendix summarizes the prompt outlines used in LMVQA. The outlines abstract the implemented templates in \texttt{scripts/VideoQA\_constants/prompts.py} and the final prompt composition logic in \texttt{scripts/VideoQA\_Pipeline/align\_multimodal\_data.py}. They document the role, input placeholders, grounding rules, and expected output format for each LLM-based step without reproducing the full prompts verbatim.
+
+\newcommand{\PromptPanel}[2]{%
+\vspace{0.55em}
+\noindent\fbox{%
+\begin{minipage}{0.96\linewidth}
+\small
+\textbf{#1}\\[0.25em]
+#2
+\end{minipage}}
+\vspace{0.35em}
+}
+
+\newcommand{\PromptLine}[2]{\textbf{#1.} #2\\}
+
+\subsection{Prompt Components}
+\label{appendix:prompt-components}
+
+We use the following notation in the outlines below. \texttt{\{timestamp\}} denotes the frame or segment time in the video. \texttt{\{video\_duration\}} denotes the total video duration in seconds. \texttt{\{retrieved\_context\}} denotes the top-ranked multimodal chunks retrieved from Milvus. \texttt{\{user\_question\}} denotes the question submitted by the user. The image frame itself is provided as the visual input to the vision-capable model.
+
+\subsection{Main LMVQA Prompt Outlines}
+\label{appendix:main-prompt-outlines}
+
+\PromptPanel{(a) Prompt Outline for Non-Diagram Frame Captioning}{
+\PromptLine{I. Role}{You are an intelligent assistant analyzing a video frame from an educational lecture or tutorial.}
+\PromptLine{II. Frame metadata}{The frame corresponds to time period \texttt{\{timestamp\}}.}
+\PromptLine{III. Visual analysis task}{If the frame contains a diagram or chart, describe its purpose, components, arrows or flows, spatial layout, visible labels, and technical meaning. If the frame shows a computer screen, summarize the displayed content, such as slides, documents, directories, or software interfaces.}
+\PromptLine{IV. Grounding rules}{Ignore irrelevant user-interface elements unless necessary. Extract and summarize visible text clearly. Avoid redundant descriptions.}
+\PromptLine{V. Output format}{Return a fluent, structured English description.}
+}
+
+\PromptPanel{(b) Prompt Outline for Diagram-Like Frame Detection}{
+\PromptLine{I. Role}{You are a fast triage classifier.}
+\PromptLine{II. Input}{A single video frame image.}
+\PromptLine{III. Classification task}{Determine whether the image is diagram-like. Diagram-like visuals include diagrams, flowcharts, schematics, architecture diagrams, charts, tables, UI wireframes, whiteboards with boxes or arrows, and equations. Natural scenes and people are not diagram-like.}
+\PromptLine{IV. Output format}{Return exactly one line: \texttt{LABEL: <DIAGRAM|NOT\_DIAGRAM>}; \texttt{TYPES: <types>}; \texttt{CONF: <0.00-1.00>}.}
+}
+
+\PromptPanel{(c) Prompt Outline for Seven-Way Diagram Classification}{
+\PromptLine{I. Role}{You are a fast diagram-type classifier.}
+\PromptLine{II. Input condition}{The image is already known to be diagram-like.}
+\PromptLine{III. Category set}{Classify the image into exactly one of \texttt{UML\_CLASS}, \texttt{UML\_SEQUENCE}, \texttt{UML\_STATE\_ACTIVITY}, \texttt{UML\_USE\_CASE}, \texttt{NETWORK\_TOPOLOGY}, \texttt{ARCH\_WORKFLOW}, or \texttt{OTHER}.}
+\PromptLine{IV. Output format}{Return exactly one line: \texttt{CATEGORY: <category>}; \texttt{CONF: <0.00-1.00>}.}
+}
+
+\PromptPanel{(d) Prompt Outline for Diagram Frame Extraction}{
+\PromptLine{I. Role}{You are describing a diagram frame from an educational video. The role is specialized according to the selected diagram category.}
+\PromptLine{II. Frame metadata}{The frame corresponds to time period \texttt{\{timestamp\}}.}
+\PromptLine{III. Generic extraction schema}{Extract the title, purpose, global layout, node inventory, edge inventory, flow sequence, text and labels, data or variables, context anchors, and key takeaway.}
+\PromptLine{IV. Category-specific schema}{Use the seven-way classifier output to refine the extraction schema as shown in the category panel below.}
+\PromptLine{V. Grounding rules}{Describe only what is visible. Prefer exact quotes for labels. Mark unclear text as \texttt{[illegible]}. Do not invent facts beyond the image.}
+\PromptLine{VI. Output format}{Return exhaustive structured plain English text. Do not return JSON.}
+}
+
+\PromptPanel{Seven-way diagram-specific extraction schemas}{
+\textbf{UML-related categories.}\\[0.15em]
+\PromptLine{\texttt{UML\_CLASS}}{Diagram title; scope or packages; classes and interfaces; relationships; key takeaways; visible-fact rules.}
+\PromptLine{\texttt{UML\_SEQUENCE}}{Diagram title; participants or lifelines; messages in top-to-bottom temporal order; activations; combined fragments; key scenario summary; no-hidden-message rules.}
+\PromptLine{\texttt{UML\_STATE\_ACTIVITY}}{Diagram title; detected subtype as state machine or activity diagram; nodes; transitions or flows; structural features such as composite states, regions, swimlanes, forks, or joins; behavior summary; visible-fact rules.}
+\PromptLine{\texttt{UML\_USE\_CASE}}{Diagram title; system boundary; actors; use cases; actor-use-case, include, extend, and generalization relationships; key takeaways; no-invention rules.}
+\vspace{0.25em}
+\textbf{Other diagram-like categories.}\\[0.15em]
+\PromptLine{\texttt{NETWORK\_TOPOLOGY}}{Diagram title or legend; nodes and endpoints; links; traffic or flows if shown; key takeaways; visible-label rules.}
+\PromptLine{\texttt{ARCH\_WORKFLOW}}{Diagram title; components or modules; interfaces or artifacts; connections or flows; ordered workflow steps when applicable; key takeaways; no-invention rules.}
+\PromptLine{\texttt{OTHER}}{Title; diagram type guess; main elements; relationships or structure; key takeaway; visible-fact rules.}
+}
+
+\PromptPanel{(e) Prompt Outline for RAG-Based Video Question Answering}{
+\PromptLine{I. Role}{You are an AI assistant specialized in answering questions about lecture videos using timestamped multimodal information.}
+\PromptLine{II. Video metadata}{The video has total duration \texttt{\{video\_duration\}} seconds.}
+\PromptLine{III. Retrieved context format}{The model receives \texttt{\{retrieved\_context\}}, a list of retrieved segments in the form \texttt{[source] <timestamp\_in\_seconds>: <text>}. The \texttt{[audio]} source denotes speech transcripts, while \texttt{[visual]} denotes frame descriptions.}
+\PromptLine{IV. Grounding rules}{Answer using only the retrieved segments. Do not introduce unsupported information. If the retrieved content is insufficient, output the canonical insufficient-information answer.}
+\PromptLine{V. Output format}{Return \texttt{Answer:} followed by the final answer, and \texttt{Used\_context:} followed by 1--10 relevant retrieved segment lines with timestamps in both seconds and \texttt{mm:ss}.}
+\PromptLine{VI. User question}{The prompt ends with \texttt{\{user\_question\}}.}
+}
+
+\begin{center}
+\small\textbf{Fig. 1: Outlines of the main prompts used in LMVQA.}
+\end{center}
+
+\subsection{Evaluation Prompt Outlines}
+\label{appendix:evaluation-prompt-outlines}
+
+LMVQA also defines lightweight evaluation prompts for checking answer quality and retrieval quality. These prompts are represented as step lists in the implementation.
+
+\PromptPanel{(f) Correctness Evaluation Outline}{
+\PromptLine{I. Task}{Compare an actual output against an expected output.}
+\PromptLine{II. Scoring criteria}{Judge whether the actual output preserves the core facts or meaning. Do not penalize wording differences, synonyms, or harmless style variation. Minor omissions are acceptable if the main answer remains correct. Extra information is acceptable unless it introduces factual errors or contradictions.}
+\PromptLine{III. Output}{Return a fractional score between 0 and 1 when the answer is partially correct.}
+}
+
+\PromptPanel{(g) Context Precision Evaluation Outline}{
+\PromptLine{I. Task}{Evaluate each retrieved chunk independently for relevance to the question.}
+\PromptLine{II. Relevance criterion}{A chunk is relevant if it helps answer the question, even if it does not fully answer it. Ignore the model's final answer.}
+\PromptLine{III. Output}{Return a number between 0 and 1 computed as relevant chunks divided by total retrieved chunks.}
+}
+
+\PromptPanel{(h) Context Recall Evaluation Outline}{
+\PromptLine{I. Task}{Judge whether the retrieved context collectively covers the information needed to answer the question according to the expected answer.}
+\PromptLine{II. Coverage criterion}{Assess coverage rather than exact wording. If the necessary facts are present across the chunks, count them as covered.}
+\PromptLine{III. Output}{Return a number between 0 and 1 representing coverage recall.}
+}
+
+\PromptPanel{(i) Truthfulness Evaluation Outline}{
+\PromptLine{I. Task}{Check whether the actual answer is faithful to the retrieved context for the question.}
+\PromptLine{II. Faithfulness criterion}{Penalize statements that contradict the retrieved context or are not supported by it. Do not reward verbosity.}
+\PromptLine{III. Output}{Return a number between 0 and 1 representing truthfulness with respect to the retrieved context.}
+}
+
+\begin{center}
+\small\textbf{Fig. 2: Outlines of the evaluation prompts used in LMVQA.}
+\end{center}
+
+\subsection{Implementation Traceability}
+\label{appendix:prompt-traceability}
+
+\PromptPanel{Implementation traceability to source code}{
+\PromptLine{Frame captioning}{\texttt{GPT4\_PROMPT\_TEMPLATE}.}
+\PromptLine{Diagram detection}{\texttt{DIAGRAM\_ROUTER\_CLASSIFY\_PROMPT}.}
+\PromptLine{Seven-way classification}{\texttt{DIAGRAM\_ROUTER\_7WAY\_CLASSIFY\_PROMPT}.}
+\PromptLine{Generic diagram extraction}{\texttt{GPT5\_DIAGRAM\_PROMPT\_TEMPLATE}.}
+\textbf{Category-specific extraction.} \texttt{GPT5\_DIAGRAM\_PROMPT\_}\\
+\texttt{TEMPLATES\_BY\_CATEGORY}.\\
+\textbf{Grounded RAG VideoQA.} \texttt{RAG\_PROMPT\_TEMPLATE\_}\\
+\texttt{QA\_WITH\_GROUNDING}; \texttt{align\_multimodal\_data}.\\
+\textbf{Evaluation prompts.} \texttt{GEVAL\_CORRECTNESS\_STEPS};\\
+\texttt{GEVAL\_CONTEXT\_PRECISION\_STEPS};\\
+\texttt{GEVAL\_CONTEXT\_RECALL\_STEPS};\\
+\texttt{GEVAL\_TRUTHFULNESS\_STEPS}.\\
+\textbf{Source files.} \texttt{VideoQA\_constants/prompts.py};\\
+\texttt{VideoQA\_Pipeline/align\_multimodal\_data.py}.
+}

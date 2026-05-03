@@ -5,6 +5,8 @@ __pycache__/
 venv/
 .vscode/
 **.pdf
+!assets/interview.pdf
+!assets/prompt_outlines.pdf
 .DS_Store
 .deepeval/
 video_env

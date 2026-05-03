@@ -148,6 +148,8 @@ python scripts/ask_lmvqa.py --video <video_path> --question "<your_question>"
 
 - `assets/interviews.tex` – interview questionnaire + transcripts (paper appendix material, LaTeX source)
 - `assets/interviews.pdf` – rendered interview questionnaire + transcripts (PDF)
+- `assets/prompt_outlines.tex` – formal prompt outlines for the LMVQA pipeline (paper appendix material, LaTeX source)
+- `assets/prompt_outlines.pdf` – standalone PDF version of the formal LMVQA prompt outlines
 
 ## 🚀 Quickstart
 
