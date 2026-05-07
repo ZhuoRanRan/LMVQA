@@ -5,6 +5,7 @@ __pycache__/
 venv/
 .vscode/
 **.pdf
+!assets/Fig1.pdf
 !assets/prompt_outlines.pdf
 !results/RQ_Results/RQ3_User_Feedback/questionnaire.pdf
 .DS_Store
