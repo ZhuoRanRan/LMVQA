@@ -22,6 +22,14 @@ The LMVQA pipeline extends the Agentic AI Hub by adding a powerful video-based q
 
 This parallel pipeline enhances interpretability, supports long-form video understanding, and is fully compatible with the existing Agentic AI Hub architecture.
 
+## Evaluation Results
+
+The evaluation artifacts are organized by research question under [`results/RQ_Results/`](results/RQ_Results/):
+
+- **RQ1 Accuracy**: question-level LMVQA and DrVideo results.
+- **RQ2 Efficiency**: timing and LLM API cost results.
+- **RQ3 User Feedback**: questionnaire and interview materials.
+
 ---
 
 ## 1. Environment Setup
@@ -136,7 +144,10 @@ python scripts/ask_lmvqa.py --video <video_path> --question "<your_question>"
 
 - `dataset/` – dataset files (e.g. lecture CSVs). Videos can be stored here optionally (see “Data & Large Files”).
 
-- `results/` – evaluation results and timing JSONs (e.g. `results/Run_time/`, `results/Process_time/`)
+- `results/RQ_Results/` – evaluation artifacts organized by paper research question:
+  - `RQ1_Accuracy/` – answer-level accuracy results for LMVQA and DrVideo
+  - `RQ2_Efficiency/` – latency, offline indexing time, and LLM API cost results
+  - `RQ3_User_Feedback/` – questionnaire and interview materials
 
 - `scripts/VideoQA_Pipeline/` – core pipeline scripts and orchestration logic for VideoQA
 
@@ -146,8 +157,8 @@ python scripts/ask_lmvqa.py --video <video_path> --question "<your_question>"
 
 - `scripts/tests/` – test scripts
 
-- `assets/interviews.tex` – interview questionnaire + transcripts (paper appendix material, LaTeX source)
-- `assets/interviews.pdf` – rendered interview questionnaire + transcripts (PDF)
+- `results/RQ_Results/RQ3_User_Feedback/questionnaire.tex` – interview questionnaire + transcripts (paper appendix material, LaTeX source)
+- `results/RQ_Results/RQ3_User_Feedback/questionnaire.pdf` – rendered questionnaire + transcripts (PDF)
 - `assets/prompt_outlines.tex` – formal prompt outlines for the LMVQA pipeline (paper appendix material, LaTeX source)
 - `assets/prompt_outlines.pdf` – standalone PDF version of the formal LMVQA prompt outlines
 
