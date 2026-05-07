@@ -6,7 +6,7 @@ venv/
 .vscode/
 **.pdf
 !assets/prompt_outlines.pdf
-!results/RQ_Results/RQ3_User_Feedback/questionnaire.pdf
+!results/RQ3_User_Feedback/questionnaire.pdf
 .DS_Store
 .deepeval/
 video_env

@@ -24,11 +24,11 @@ This parallel pipeline enhances interpretability, supports long-form video under
 
 ## Evaluation Results
 
-The evaluation artifacts are organized by research question under [`results/RQ_Results/`](results/RQ_Results/):
+The evaluation artifacts are organized by research question under [`results/`](results/):
 
-- **RQ1 Accuracy**: question-level LMVQA and DrVideo results.
-- **RQ2 Efficiency**: timing and LLM API cost results.
-- **RQ3 User Feedback**: questionnaire and interview materials.
+- [`RQ1_Accuracy/`](results/RQ1_Accuracy/): question-level LMVQA and DrVideo results.
+- [`RQ2_Efficiency/`](results/RQ2_Efficiency/): timing and LLM API cost results.
+- [`RQ3_User_Feedback/`](results/RQ3_User_Feedback/): questionnaire and interview materials.
 
 ---
 
@@ -144,10 +144,11 @@ python scripts/ask_lmvqa.py --video <video_path> --question "<your_question>"
 
 - `Lecture_dataset/` – public Course dataset question CSVs.
 
-- `results/RQ_Results/` – evaluation artifacts organized by paper research question:
-  - `RQ1_Accuracy/` – answer-level accuracy results for LMVQA and DrVideo
-  - `RQ2_Efficiency/` – latency, offline indexing time, and LLM API cost results
-  - `RQ3_User_Feedback/` – questionnaire and interview materials
+- `results/RQ1_Accuracy/` – answer-level accuracy results for LMVQA and DrVideo
+
+- `results/RQ2_Efficiency/` – latency, offline indexing time, and LLM API cost results
+
+- `results/RQ3_User_Feedback/` – questionnaire and interview materials
 
 - `scripts/VideoQA_Pipeline/` – core pipeline scripts and orchestration logic for VideoQA
 
@@ -157,8 +158,8 @@ python scripts/ask_lmvqa.py --video <video_path> --question "<your_question>"
 
 - `scripts/tests/` – test scripts
 
-- `results/RQ_Results/RQ3_User_Feedback/questionnaire.tex` – interview questionnaire + transcripts (paper appendix material, LaTeX source)
-- `results/RQ_Results/RQ3_User_Feedback/questionnaire.pdf` – rendered questionnaire + transcripts (PDF)
+- `results/RQ3_User_Feedback/questionnaire.tex` – interview questionnaire + transcripts (paper appendix material, LaTeX source)
+- `results/RQ3_User_Feedback/questionnaire.pdf` – rendered questionnaire + transcripts (PDF)
 - `assets/prompt_outlines.tex` – formal prompt outlines for the LMVQA pipeline (paper appendix material, LaTeX source)
 - `assets/prompt_outlines.pdf` – standalone PDF version of the formal LMVQA prompt outlines
 
