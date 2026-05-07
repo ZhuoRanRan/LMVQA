@@ -142,7 +142,7 @@ python scripts/ask_lmvqa.py --video <video_path> --question "<your_question>"
 
 - `assets/` – figures/images used in the README (e.g. `assets/Fig1.png`)
 
-- `dataset/` – dataset files (e.g. lecture CSVs). Videos can be stored here optionally (see “Data & Large Files”).
+- `Lecture_dataset/` – public Course dataset question CSVs.
 
 - `results/RQ_Results/` – evaluation artifacts organized by paper research question:
   - `RQ1_Accuracy/` – answer-level accuracy results for LMVQA and DrVideo
