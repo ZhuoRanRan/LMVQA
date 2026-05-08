@@ -19,7 +19,14 @@ This appendix summarizes the prompt outlines used in LMVQA. The outlines abstrac
 \subsection{Main LMVQA Prompt Outlines}
 \label{appendix:main-prompt-outlines}
 
-\LmvqaPromptBox{(a) Prompt Outline for Non-Diagram Frame Captioning}{
+\LmvqaPromptBox{(Listing a) Prompt Outline for Diagram-Like Frame Detection}{
+\LmvqaPItem{(I)}{Role: a fast triage classifier.}
+\LmvqaPItem{(II)}{Input: a single video frame image.}
+\LmvqaPItem{(III)}{Task: decide whether the frame is diagram-like. Diagram-like visuals include diagrams, flowcharts, schematics, architecture diagrams, charts, tables, UI wireframes, whiteboards with boxes or arrows, and equations.}
+\LmvqaPItem{(IV)}{Output: \texttt{LABEL: <DIAGRAM|NOT\_DIAGRAM>}; \texttt{TYPES: <types>}; \texttt{CONF: <0.00-1.00>}.}
+}
+
+\LmvqaPromptBox{(Listing b) Prompt Outline for Non-Diagram Frame Captioning}{
 \LmvqaPItem{(I)}{Role: an assistant analyzing a video frame from an educational lecture or tutorial.}
 \LmvqaPItem{(II)}{Frame metadata: \texttt{\{timestamp\}}.}
 \LmvqaPItem{(III)}{Input: a sampled video frame image.}
@@ -28,21 +35,14 @@ This appendix summarizes the prompt outlines used in LMVQA. The outlines abstrac
 \LmvqaPItem{(VI)}{Output: a fluent structured English frame description.}
 }
 
-\LmvqaPromptBox{(b) Prompt Outline for Diagram-Like Frame Detection}{
-\LmvqaPItem{(I)}{Role: a fast triage classifier.}
-\LmvqaPItem{(II)}{Input: a single video frame image.}
-\LmvqaPItem{(III)}{Task: decide whether the frame is diagram-like. Diagram-like visuals include diagrams, flowcharts, schematics, architecture diagrams, charts, tables, UI wireframes, whiteboards with boxes or arrows, and equations.}
-\LmvqaPItem{(IV)}{Output: \texttt{LABEL: <DIAGRAM|NOT\_DIAGRAM>}; \texttt{TYPES: <types>}; \texttt{CONF: <0.00-1.00>}.}
-}
-
-\LmvqaPromptBox{(c) Prompt Outline for Seven-Way Diagram Classification}{
+\LmvqaPromptBox{(Listing c) Prompt Outline for Diagram Classification}{
 \LmvqaPItem{(I)}{Role: a fast diagram-type classifier.}
 \LmvqaPItem{(II)}{Input condition: the image is already known to be diagram-like.}
 \LmvqaPItem{(III)}{Categories: \texttt{UML\_CLASS}, \texttt{UML\_SEQUENCE}, \texttt{UML\_STATE\_ACTIVITY}, \texttt{UML\_USE\_CASE}, \texttt{NETWORK\_TOPOLOGY}, \texttt{ARCH\_WORKFLOW}, or \texttt{OTHER}.}
 \LmvqaPItem{(IV)}{Output: \texttt{CATEGORY: <category>}; \texttt{CONF: <0.00-1.00>}.}
 }
 
-\LmvqaPromptBox{(d) Seven Diagram Categories Used for Category-Specific Extraction}{
+\LmvqaPromptBox{(Listing d) Definitions for diagram categories used in prompt outline in listing c.}{
 \LmvqaPItem{\texttt{UML\_CLASS}:}{diagram title; scope or packages; classes and interfaces; relationships; key takeaways.}
 \LmvqaPItem{\texttt{UML\_SEQUENCE}:}{diagram title; participants or lifelines; temporally ordered messages; activations; combined fragments; key scenario summary.}
 \LmvqaPItem{\texttt{UML\_STATE\_ACTIVITY}:}{diagram title; subtype; nodes; transitions or flows; composite states, swimlanes, forks, joins, and behavior summary.}
@@ -52,18 +52,18 @@ This appendix summarizes the prompt outlines used in LMVQA. The outlines abstrac
 \LmvqaPItem{\texttt{OTHER}:}{title; diagram type guess; main elements; relationships or structure; key takeaway.}
 }
 
-\LmvqaPromptBox{(e) Prompt Outline for Diagram Frame Extraction}{
+\LmvqaPromptBox{(Listing e) Prompt Outline for Diagram Frame Extraction}{
 \LmvqaPItem{(I)}{Role: a diagram-frame describer specialized according to the selected diagram category.}
 \LmvqaPItem{(II)}{Frame metadata: \texttt{\{timestamp\}}.}
 \LmvqaPItem{(III)}{Input: the diagram-like video frame image.}
 \LmvqaPItem{(IV)}{Generic schema: title, purpose, global layout, nodes, edges, flow sequence, text and labels, data or variables, context anchors, and key takeaway.}
-\LmvqaPItem{(V)}{Category-specific schema: refined according to the seven-way classifier output.}
+\LmvqaPItem{(V)}{Category-specific schema: refined according to the diagram classifier output.}
 \LmvqaPItem{(VI)}{Grounding rules: describe only visible content, quote labels when possible, mark unclear text as \texttt{[illegible]}, and do not invent facts.}
 \LmvqaPItem{(VII)}{Output: exhaustive structured plain English text, not JSON.}
 }
 
-\LmvqaPromptBox{(f) Prompt Outline for RAG-Based Video Question Answering}{
-\LmvqaPItem{(I)}{Role: an assistant answering questions about lecture videos using timestamped multimodal information.}
+\LmvqaPromptBox{(Listing f) Prompt Outline for RAG-Based Video Question Answering}{
+\LmvqaPItem{(I)}{Role: an assistant answering questions about technical videos using timestamped multimodal information.}
 \LmvqaPItem{(II)}{Video metadata: \texttt{\{video\_duration\}}.}
 \LmvqaPItem{(III)}{Retrieved context: \texttt{\{retrieved\_context\}}, formatted as \texttt{[source] <timestamp>: <text>}.}
 \LmvqaPItem{(IV)}{User question: \texttt{\{user\_question\}}.}
