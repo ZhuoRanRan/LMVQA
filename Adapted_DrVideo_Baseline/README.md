@@ -1,18 +1,16 @@
 # Adapted DrVideo Baseline
 
-This directory contains the adapted DrVideo baseline materials used in the LMVQA evaluation for the Course dataset.
+This directory contains the adapted DrVideo baseline code used in the LMVQA evaluation for the Course dataset.
 
 The original DrVideo implementation is available at [Upper9527/DrVideo](https://github.com/Upper9527/DrVideo.git). We include a copy of the upstream README for reference: [`docs/ORIGINAL_DRVIDEO_README.md`](docs/ORIGINAL_DRVIDEO_README.md).
 
 ## What Is Included
 
 - [`scripts/`](scripts/): adapted DrVideo code for open-ended Course video QA.
-- [`Lecture_dataset/`](Lecture_dataset/): Course dataset question and ground-truth CSV files for Lecture1-Lecture5.
-- [`results/RQ1_Accuracy/DrVideo_Lecture_accuracy/`](results/RQ1_Accuracy/DrVideo_Lecture_accuracy/): DrVideo Course accuracy files with expert annotations.
-- [`results/DrVideo_OpenEnded_Predictions/`](results/DrVideo_OpenEnded_Predictions/): raw adapted DrVideo open-ended predictions with rationales.
-- [`results/RQ2_Efficiency/`](results/RQ2_Efficiency/): DrVideo per-question timing logs and API cost data.
+- [`.env.example`](.env.example): environment-variable template for the LLM API settings.
+- [`docs/ORIGINAL_DRVIDEO_README.md`](docs/ORIGINAL_DRVIDEO_README.md): unmodified upstream DrVideo README for reference.
 
-Lecture videos are not duplicated here. They can be downloaded using the link in the main repository README.
+The Course dataset, evaluation outputs, and lecture videos are not duplicated in this directory. The Course CSV files are available in the main repository at [`../Lecture_dataset/`](../Lecture_dataset/), and the paper's Course results are available under the main repository's [`../results/`](../results/) directory.
 
 ## What Was Adapted
 
@@ -71,7 +69,7 @@ cd Adapted_DrVideo_Baseline/scripts
 python main.py \
   --output_base_path ../output \
   --output_filename unused.json \
-  --single_csv_path ../Lecture_dataset/Lecture1.csv \
+  --single_csv_path ../../Lecture_dataset/Lecture1.csv \
   --single_video_path /path/to/Lecture1.mp4 \
   --single_output_csv ../output/Lecture1_predictions.csv \
   --lecture_output_dir ../output \
@@ -87,12 +85,12 @@ The run writes open-ended predictions to the selected CSV path and per-question 
 
 The Course dataset includes 295 open-ended questions across five lecture videos.
 
-The timing files in [`results/RQ2_Efficiency/DrVideo_interactive_answering_time_per_question/`](results/RQ2_Efficiency/DrVideo_interactive_answering_time_per_question/) are the timing logs used for the paper's Course dataset DrVideo efficiency result. Across all 295 Course questions, they yield:
+The timing files in [`../results/RQ2_Efficiency/DrVideo_interactive_answering_time_per_question/`](../results/RQ2_Efficiency/DrVideo_interactive_answering_time_per_question/) are the timing logs used for the paper's Course dataset DrVideo efficiency result. Across all 295 Course questions, they yield:
 
 - mean answering time: 98.4 seconds per question;
 - standard deviation: 25.0 seconds.
 
-The prediction CSV files in [`results/DrVideo_OpenEnded_Predictions/`](results/DrVideo_OpenEnded_Predictions/) contain the adapted DrVideo answers and rationales. Timing should be read from the RQ2 JSONL files rather than from prediction CSV files.
+The DrVideo Course accuracy annotations are available in [`../results/RQ1_Accuracy/DrVideo_Lecture_accuracy/`](../results/RQ1_Accuracy/DrVideo_Lecture_accuracy/). Timing should be read from the RQ2 JSONL files rather than from prediction CSV files generated during a baseline run.
 
 ## Directory Structure
 
@@ -100,16 +98,8 @@ The prediction CSV files in [`results/DrVideo_OpenEnded_Predictions/`](results/D
 Adapted_DrVideo_Baseline/
 ├── README.md
 ├── .env.example
-├── Lecture_dataset/
 ├── docs/
 │   └── ORIGINAL_DRVIDEO_README.md
-├── results/
-│   ├── DrVideo_OpenEnded_Predictions/
-│   ├── RQ1_Accuracy/
-│   │   └── DrVideo_Lecture_accuracy/
-│   └── RQ2_Efficiency/
-│       ├── DrVideo_interactive_answering_time_per_question/
-│       └── llm_api_cost.csv
 └── scripts/
     ├── main.py
     ├── model.py
@@ -121,4 +111,3 @@ Adapted_DrVideo_Baseline/
         ├── blip2_model.py
         └── whisper_model.py
 ```
-
