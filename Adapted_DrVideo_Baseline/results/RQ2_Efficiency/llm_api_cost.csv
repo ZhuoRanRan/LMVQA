@@ -1,6 +1,6 @@
-dataset_item,drvideo_ciena_api_cost,drvideo_course_api_cost,lmvqa_ciena_api_cost,lmvqa_course_api_cost
-Ciena_Video1 / Lecture1,99.90,78.09,30.92,22.55
-Ciena_Video2 / Lecture2,172.18,116.15,39.43,27.02
-Ciena_Video3 / Lecture3,162.38,165.53,35.64,43.33
-Ciena_Video4 / Lecture4,165.93,220.27,38.85,50.92
-Ciena_Video5 / Lecture5,144.36,201.61,33.91,47.78
+dataset_item,drvideo_course_api_cost,lmvqa_course_api_cost
+Lecture1,78.09,22.55
+Lecture2,116.15,27.02
+Lecture3,165.53,43.33
+Lecture4,220.27,50.92
+Lecture5,201.61,47.78
