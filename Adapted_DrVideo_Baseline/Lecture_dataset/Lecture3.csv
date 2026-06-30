@@ -1,0 +1,71 @@
+question,gt
+What does the lecturer say right at the start about recording and sharing?,The lecturer says “Start the recording and start sharing my screen.”
+When do labs begin according to the announcements?,Labs start next week; there are no labs this week.
+What change was mentioned about a lab location?,One lab (A1) changed rooms within the same SITE building.
+What must a teammate explicitly state if only one member attends the lab?,That the work was done collaboratively by both members.
+Which previous lecture topic did the instructor reference before starting domain analysis?,"Process modeling (e.g., waterfall, iterative, agile) posted on Brightspace."
+What sequence of process models does the lecturer list from traditional to modern?,Waterfall _ iterative approaches _ agile practices.
+"Over the next several lectures, which behavioral modeling notations does the instructor say will be covered?","Activity diagrams, state machines, Petri Nets, SDL."
+What is the main goal of domain analysis as described by the lecturer?,"To learn background/context, concepts, and terminology to communicate with stakeholders before deciding feasibility."
+What three high-level requirement types does the lecturer list?,"Customer requirements, functional requirements, non-functional requirements."
+"In agile contexts, how are requirements commonly captured per the lecturer?",As user stories.
+"In the ECS cluster figure, which external source pushes images to ECR?",GitHub pushes to ECR.
+"In the ECS cluster diagram, which AWS service triggers the worker service?",AWS Lambda triggers the worker service.
+"In the ECS cluster box, what label appears above the ovals that represent use cases inside a system boundary?",System boundary.
+"On the slide that begins “DOMAIN ANALYSIS,” what does “domain” refer to?",The general field in which the customer expects to use the software.
+"On the “DOMAIN ANALYSIS” slide, name one listed artifact to include in the document besides the glossary.","Environment, domain model, tasks/procedures, competing software (any one)."
+"On the “DOMAIN MODEL” slide, what does domain modeling generally decompose?",The domain into individual entities and their responsibilities/relationships.
+"In the four-class UML example, what is the generalization relationship shown between two left-side classes?",University is a subclass (generalization) of EducationalInstitution.
+"In the same UML example, what multiplicity sits at the Student end of the EducationalInstitution–Student association?",1..* at the Student end.
+"In the banking card UML, which two subclasses specialize FinancialCard?",DebitCard and CreditCard.
+"In that same diagram, what multiplicity is shown at the BankAccount end of the FinancialCard–BankAccount association?",1..2 at the BankAccount end.
+"In the hospital “class Organization” diagram, which two top-level specializations derive from Person?",Patient and Staff.
+"In that hospital model, which relation (aggregation/composition) connects Hospital to Department?",Aggregation/composition (a diamond) from Hospital to Department.
+"In the ER model, what geometric shape represents relationships such as “Has” and “Performs Transaction”?",Diamonds.
+"In the ER model, which relationship connects User and ATM?",“Performs Transaction.”
+"In the ER model, what attribute is attached to the Account–User “Has” relationship?",Date.
+"In the use case anatomy graphic, what is the name of the rectangular container that encloses use cases?",System boundary (a labeled rectangle).
+"In that use case example, what role label is given to the stick figure on the right?",Salesperson.
+"In the “Telephone Catalog” use case diagram, list one use case inside the system boundary.","Check status (or place order, or fill orders, or establish credit)."
+"In the “USE CASE RELATIONSHIPS” include example, which repeated sub-function is included by both Deposit Funds and Withdraw Cash?",Customer Authentication.
+"In the extend example, which use case extends Book Flight?",Upgrade Seat.
+"In the use case generalization trio, what sits as the parent above Check Password and Fingerprint Scan?",Verify Identity.
+"In the “Sales Order System” diagram, which use case is marked as the base use case?",Place Order.
+"In that same diagram, which three use cases does Place Order include?","Supply Customer Data, Order Product, Arrange Payment."
+"In the “Sales Order System” diagram, which two child use cases specialize Arrange Payment?",Pay Cash and Arrange Credit.
+"In the ATM use case diagram, which single use case is included by Withdraw Funds, Query Account, and Transfer Funds?",Validate PIN.
+"In “Validate PIN (2)”, what does the system check after the customer enters a PIN and the card is valid?",It checks whether the entered PIN matches the stored card PIN.
+"In “Validate PIN (3)”, what happens if the card is not recognized?",The system ejects the card.
+"In “Validate PIN (3)”, what happens after three incorrect PIN attempts?",The system confiscates the card.
+"In “Withdraw Funds (2)”, what does the system do immediately after authorizing dispensing of cash?",Dispenses cash (then prints receipt).
+"In “Withdraw Funds (3)”, what happens if the ATM is out of funds?","The system apologizes, ejects the card, and shuts down."
+"During 0–1s, what large label identifies the right-hand grouped box in the infrastructure sketch?",ECS cluster.
+"During 14–22s, what section title is shown in red text?",SECTION 2 — Domain Analysis and Requirements Modeling.
+"At 347–499s, which course code appears on the “DOMAIN ANALYSIS” slide?",SEG2106.
+"At 850–1345s, which association name links EducationalInstitution to Student?",enrolledAt.
+"At 1372–1505s, what class sits directly above both DebitCard and CreditCard?",FinancialCard.
+"At 1707–1787s, which right-hand class aggregates or composes Departments?",Hospital.
+"At 1788–1789s, name one relationship diamond visible between core entities.",Has (between Account and User) or Performs Transaction (between User and ATM).
+"At 2576–2579s, what definition is given for an actor in the use case view?",A party outside the system (user or external system) that interacts with it.
+"At 3056–3081s, what relationship type is illustrated with a parent use case and two children implying an either/or execution?",Generalization (use case specialization).
+"At 3770–3801s, list two non-functional attributes named on the slide.","Any two of: security, reliability, maintainability, scalability, usability."
+"According to the “Validate PIN” main sequence (23–24 of 34), what is step 1?",Customer inserts the ATM card into the card reader.
+"According to the same main sequence, what does the system do in step 2 if the card is recognized?",It reads the card number.
+"In the “Validate PIN” main sequence, what does the system do after PIN numbers match?",The system checks what accounts are accessible with the ATM card.
+"In the “Validate PIN” alternative sequence, what happens if the card date has expired?",The system confiscates the card.
+"In the “Validate PIN” alternative sequence, what happens if the customer presses Cancel between steps 4–8?",The system cancels the transaction and ejects the card.
+"In the “Withdraw Funds” main sequence, what is checked in step 3 before authorizing cash?",Sufficient funds and daily limit not exceeded.
+"In the “Withdraw Funds” main sequence, what is printed in step 6 besides the transaction number?","Transaction type, amount withdrawn, and account balance (any of these details beyond number)."
+"In the “Withdraw Funds” alternative sequence, what happens if the daily withdrawal limit is exceeded?",The system apologizes and ejects the card.
+"In the “Withdraw Funds” alternative sequence, what happens if the account number is invalid?",The system displays an error and ejects the card.
+"In the “Withdraw Funds” alternative sequence, what three-part action happens if the ATM is out of funds?","The system apologizes, ejects the card, and shuts down."
+Summarize the purpose of domain analysis in one sentence.,"To determine the domain’s concepts, stakeholders, constraints, and language so feasibility and scope can be judged."
+Summarize how domain models and behavioral models relate in this lecture.,Domain models define structure; behavioral models show how those relationships change over time (how the system behaves).
+State why multiplicities on associations are important in domain models.,They constrain the number of participating entities and clarify cardinality for correctness.
+"Explain the difference between association, aggregation, and composition as presented.",Association = generic link; aggregation = whole-part (looser); composition = whole-part with strong lifetime dependency.
+"In one sentence, explain the role of include versus extend between use cases.",Include extracts mandatory shared behavior; extend conditionally adds optional behavior to a base use case.
+Give the template for user stories used in agile per the lecture.,"As a <type of user>, I want <some goal> so that <some reason>."
+Describe what an epic story is and how it is handled.,"A large, high-level story that spans more than one iteration and must be decomposed into smaller user stories."
+Provide two examples of non-functional requirements mentioned.,"Security (e.g., encrypt card numbers and PINs), performance (respond within 5 seconds), reliability, scalability, usability."
+State the main purpose of a Software Requirements Specification in this lecture.,To integrate functional and non-functional requirements (plus domain analysis) into a signed-off contract and basis for estimates.
+"According to the estimation precision slide, why are early cost/schedule estimates highly uncertain?","Because at feasibility/requirements stages estimation error can be off by up to ~4x, improving only as the project advances."
