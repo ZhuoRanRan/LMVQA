@@ -30,6 +30,11 @@ The evaluation artifacts are organized by research question under [`results/`](r
 - [`RQ2_Efficiency/`](results/RQ2_Efficiency/): timing and LLM API cost results.
 - [`RQ3_User_Feedback/`](results/RQ3_User_Feedback/): questionnaire and interview materials.
 
+The adapted DrVideo baseline code used for the Course dataset evaluation is provided in
+[`Adapted_DrVideo_Baseline/`](Adapted_DrVideo_Baseline/). See its
+[`README.md`](Adapted_DrVideo_Baseline/README.md) for the adapted baseline setup, model configuration,
+and a summary of how the original multiple-choice DrVideo pipeline was modified for open-ended QA.
+
 ---
 
 ## 1. Environment Setup
@@ -143,6 +148,8 @@ python scripts/ask_lmvqa.py --video <video_path> --question "<your_question>"
 - `assets/` – figures/images used in the README (e.g. `assets/Fig1.png`)
 
 - `Lecture_dataset/` – public Course dataset question CSVs.
+
+- `Adapted_DrVideo_Baseline/` – adapted DrVideo baseline code and documentation; see `Adapted_DrVideo_Baseline/README.md`.
 
 - `results/RQ1_Accuracy/` – answer-level accuracy results for LMVQA and DrVideo
 
