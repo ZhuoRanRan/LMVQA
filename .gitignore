@@ -17,6 +17,17 @@ outputs/**
 # project organization but must not be committed to the replication package.
 /Local_Project_Materials/
 
+# Private Ciena datasets and derived result artifacts.
+/Acc_Dataset/
+/Ciena_Baseline_Eval_Datasets/
+/Ciena_Baseline_Processtime/
+/Ciena_Datasets/
+/Ciena_Eval_Datasets*/
+/Ciena_Eval_Results*/
+/Ciena_Video/
+/results/**/*Ciena*
+/results/**/*ciena*
+
 gcm-diagnose.log
 autoVideo.bat
 run_gpt5_batch.bat
@@ -32,10 +43,6 @@ Lecture3.wav
 Tutorial.wav
 input_videos/
 
-Ciena_Datasets/
-Ciena_Video/
-Ciena_Eval_Datasets/
-Ciena_Eval_Results/
 ADS_input_videos/
 /input_videos/
 
