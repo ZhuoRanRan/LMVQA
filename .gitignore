@@ -13,6 +13,10 @@ video_env
 
 outputs/**
 
+# Local-only archives and raw project materials. These are kept on disk for
+# project organization but must not be committed to the replication package.
+/Local_Project_Materials/
+
 gcm-diagnose.log
 autoVideo.bat
 run_gpt5_batch.bat
@@ -61,4 +65,3 @@ actionvideo_main.py
 /show_database.py
 /verify_openai_env.py
 /evaluation_pipeline/
-
