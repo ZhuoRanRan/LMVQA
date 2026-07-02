@@ -16,6 +16,10 @@ outputs/**
 # Local-only archives and raw project materials. These are kept on disk for
 # project organization but must not be committed to the replication package.
 /Local_Project_Materials/
+/lmvqa_milvus_export*/
+/lmvqa_milvus_export*.zip
+/Local_Project_Materials/lmvqa_milvus_export*/
+/Local_Project_Materials/lmvqa_milvus_export*.zip
 
 # Private Ciena datasets and derived result artifacts.
 /Acc_Dataset/
